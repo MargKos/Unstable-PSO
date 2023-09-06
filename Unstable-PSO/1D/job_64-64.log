@@ -1,0 +1,28 @@
+Fr 1. Sep 14:26:37 CEST 2023
+htc-cmp102
+/home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/1D
+
+Hello! This is task number 63
+Fr 1. Sep 14:26:54 CEST 2023
+Fr 1. Sep 14:26:54 CEST 2023
+htc-cmp102
+/home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/1D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/1D/Measures1D.py", line 60, in <module>
+    ClassicG=np.load(path+'G_s'+str(nameClassic[function_number])+str(s)+'.npy')
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 444, in load
+    raise ValueError("Cannot load file containing pickled data "
+ValueError: Cannot load file containing pickled data when allow_pickle=False
+6
+6
+6
+1
+1
+1
+7
+7
+7
+5
+5
+5
+Fr 1. Sep 15:15:08 CEST 2023

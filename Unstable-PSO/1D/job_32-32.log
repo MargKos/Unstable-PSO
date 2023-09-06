@@ -1,0 +1,12 @@
+Fr 1. Sep 13:38:48 CEST 2023
+htc-cmp110
+/home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/1D
+
+Hello! This is task number 31
+Fr 1. Sep 13:39:02 CEST 2023
+Fr 1. Sep 13:39:02 CEST 2023
+htc-cmp110
+/home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/1D
+/usr/lib/python3/dist-packages/numpy/core/_asarray.py:136: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  return array(a, dtype, copy=False, order=order, subok=True)
+slurmstepd-htc-cmp110: error: *** JOB 12620983 ON htc-cmp110 CANCELLED AT 2023-09-01T14:38:57 DUE TO TIME LIMIT ***
