@@ -24,14 +24,14 @@ legend_fontsize=30
 
 
 
-ConcentrationOrbit=np.load('./Results/AverageConcentrationRastrigin'+str(nameOrbit)+'.npy')
-ConcentrationClassic=np.load('./Results/AverageConcentrationRastrigin'+str(nameClassic)+'.npy')
-ConcentrationHarmonic=np.load('./Results/AverageConcentrationRastrigin'+str(nameHarmonic)+'.npy')
+ConcentrationOrbit=np.load('./Results/2AverageConcentrationRastrigin'+str(nameOrbit)+'.npy')
+ConcentrationClassic=np.load('./Results/2AverageConcentrationRastrigin'+str(nameClassic)+'.npy')
+ConcentrationHarmonic=np.load('./Results/2AverageConcentrationRastrigin'+str(nameHarmonic)+'.npy')
 
 
 #%% Plot mean and concentration 
 delta=1
-#T_PSO_short=1000
+T_PSO_short=1000
 T_PSO_short_c=1000
 fig, axs = plt.subplots(1, 2, figsize=(20,7))
 plt.subplots_adjust(top=0.8, bottom=0.22,left=0.1, right=0.95)

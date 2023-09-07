@@ -74,20 +74,20 @@ for i in range(4):
 
     # load exploitationn and mean
 
-    MeanOrbit=np.load('./Results/Mean'+str(nameOrbit[UnimodalNumber[i]])+'.npy')
-    MeanClassic=np.load('./Results/Mean'+str(nameClassic[UnimodalNumber[i]])+'.npy')
-    MeanHarmonic=np.load('./Results/Mean'+str(nameHarmonic[UnimodalNumber[i]])+'.npy')
+    MeanDivergent=np.load('./Results/Mean'+str(nameDivergent[UnimodalNumber[i]])+'.npy')
+    MeanOverdamped=np.load('./Results/Mean'+str(nameOverdamped[UnimodalNumber[i]])+'.npy')
+    MeanDamped=np.load('./Results/Mean'+str(nameDamped[UnimodalNumber[i]])+'.npy')
 
     
     axsi=axs[l,1]
     l=l+1
     
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanClassic[0:T_PSO_med[UnimodalNumber[i]]],  linewidth=2.0,color='orange')
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanOrbit[0:T_PSO_med[UnimodalNumber[i]]],  linewidth=2.0,color='blue')
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanHarmonic[0:T_PSO_med[UnimodalNumber[i]]], linewidth=2.0,color='green')
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanClassic[0:T_PSO_med[UnimodalNumber[i]]], 's', markevery=ME[UnimodalNumber[i]], markersize=9, color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanHarmonic[0:T_PSO_med[UnimodalNumber[i]]], '^', markevery=ME[UnimodalNumber[i]],markersize=7,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanOrbit[0:T_PSO_med[UnimodalNumber[i]]], 'o', markevery=ME[UnimodalNumber[i]],markersize=7, color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanOverdamped[0:T_PSO_med[UnimodalNumber[i]]],  linewidth=2.0,color='orange')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanDivergent[0:T_PSO_med[UnimodalNumber[i]]],  linewidth=2.0,color='blue')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanDamped[0:T_PSO_med[UnimodalNumber[i]]], linewidth=2.0,color='green')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanOverdamped[0:T_PSO_med[UnimodalNumber[i]]], 's', markevery=ME[UnimodalNumber[i]], markersize=9, color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanDivergent[0:T_PSO_med[UnimodalNumber[i]]], '^', markevery=ME[UnimodalNumber[i]],markersize=7,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSO_med[UnimodalNumber[i]], T_PSO_med[UnimodalNumber[i]]), MeanDamped[0:T_PSO_med[UnimodalNumber[i]]], 'o', markevery=ME[UnimodalNumber[i]],markersize=7, color='blue',  label='Divergent')
     
     axsi.tick_params(axis='x', labelsize=20)
     axsi.tick_params(axis='y', labelsize=20)
@@ -103,18 +103,18 @@ for i in range(4):
 
     # plot exploitation
 
-    exploitationOrbit=np.load('./Results/AveragedConcentration'+str(nameOrbit[UnimodalNumber[i]])+'.npy')
-    exploitationClassic=np.load('./Results/AveragedConcentration'+str(nameClassic[UnimodalNumber[i]])+'.npy')
-    exploitationHarmonic=np.load('./Results/AveragedConcentration'+str(nameHarmonic[UnimodalNumber[i]])+'.npy')
+    exploitationDivergent=np.load('./Results/AveragedConcentration'+str(nameDivergent[UnimodalNumber[i]])+'.npy')
+    exploitationOverdamped=np.load('./Results/AveragedConcentration'+str(nameOverdamped[UnimodalNumber[i]])+'.npy')
+    exploitationDamped=np.load('./Results/AveragedConcentration'+str(nameDamped[UnimodalNumber[i]])+'.npy')
 
     axsi=axs[l,2]
     l=l+1
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationClassic[0:T_PSOc[UnimodalNumber[i]]], linewidth=2.0,color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationHarmonic[0:T_PSOc[UnimodalNumber[i]]],linewidth=2,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]),exploitationOrbit[0:T_PSOc[UnimodalNumber[i]]], linewidth=2.0,color='blue',  label='Divergent Oscillator')
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationClassic[0:T_PSOc[UnimodalNumber[i]]],'s', markevery=ME2[UnimodalNumber[i]], markersize=7, color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationHarmonic[0:T_PSOc[UnimodalNumber[i]]], '^', markevery=ME2[UnimodalNumber[i]],markersize=7,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]),exploitationOrbit[0:T_PSOc[UnimodalNumber[i]]],'o', markevery=ME2[UnimodalNumber[i]],markersize=7 ,color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationOverdamped[0:T_PSOc[UnimodalNumber[i]]], linewidth=2.0,color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationDamped[0:T_PSOc[UnimodalNumber[i]]],linewidth=2,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]),exploitationDivergent[0:T_PSOc[UnimodalNumber[i]]], linewidth=2.0,color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationOverdamped[0:T_PSOc[UnimodalNumber[i]]],'s', markevery=ME2[UnimodalNumber[i]], markersize=7, color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]), exploitationDamped[0:T_PSOc[UnimodalNumber[i]]], '^', markevery=ME2[UnimodalNumber[i]],markersize=7,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSOc[UnimodalNumber[i]], T_PSOc[UnimodalNumber[i]]),exploitationDivergent[0:T_PSOc[UnimodalNumber[i]]],'o', markevery=ME2[UnimodalNumber[i]],markersize=7 ,color='blue',  label='Divergent')
     
     axsi.tick_params(axis='x', labelsize=20)
     axsi.tick_params(axis='y', labelsize=20)
@@ -187,22 +187,22 @@ for i in range(4):
     
     # load exploitationn and mean
 
-    MeanOrbit=np.load('./Results/Mean'+str(nameOrbit[MultimodalNumber[i]])+'.npy')
-    MeanClassic=np.load('./Results/Mean'+str(nameClassic[MultimodalNumber[i]])+'.npy')
-    MeanHarmonic=np.load('./Results/Mean'+str(nameHarmonic[MultimodalNumber[i]])+'.npy')
+    MeanDivergent=np.load('./Results/Mean'+str(nameDivergent[MultimodalNumber[i]])+'.npy')
+    MeanOverdamped=np.load('./Results/Mean'+str(nameOverdamped[MultimodalNumber[i]])+'.npy')
+    MeanDamped=np.load('./Results/Mean'+str(nameDamped[MultimodalNumber[i]])+'.npy')
     
-    print('./Results/Mean'+str(nameOrbit)+'.npy')
+    print('./Results/Mean'+str(nameDivergent)+'.npy')
 
     # plot mean
 
     axsi=axs[l,1]
     l=l+1
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanClassic[0:T_PSO_med[MultimodalNumber[i]]],  linewidth=2.0,color='orange')
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanOrbit[0:T_PSO_med[MultimodalNumber[i]]],  linewidth=2.0,color='blue')
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanHarmonic[0:T_PSO_med[MultimodalNumber[i]]], linewidth=2.0,color='green')
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanClassic[0:T_PSO_med[MultimodalNumber[i]]], 's', markevery=ME[MultimodalNumber[i]], markersize=9, color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanHarmonic[0:T_PSO_med[MultimodalNumber[i]]], '^', markevery=ME[MultimodalNumber[i]],markersize=7,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanOrbit[0:T_PSO_med[MultimodalNumber[i]]], 'o', markevery=ME[MultimodalNumber[i]],markersize=7, color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanOverdamped[0:T_PSO_med[MultimodalNumber[i]]],  linewidth=2.0,color='orange')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanDivergent[0:T_PSO_med[MultimodalNumber[i]]],  linewidth=2.0,color='blue')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanDamped[0:T_PSO_med[MultimodalNumber[i]]], linewidth=2.0,color='green')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanOverdamped[0:T_PSO_med[MultimodalNumber[i]]], 's', markevery=ME[MultimodalNumber[i]], markersize=9, color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanDamped[0:T_PSO_med[MultimodalNumber[i]]], '^', markevery=ME[MultimodalNumber[i]],markersize=7,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSO_med[MultimodalNumber[i]], T_PSO_med[MultimodalNumber[i]]), MeanDivergent[0:T_PSO_med[MultimodalNumber[i]]], 'o', markevery=ME[MultimodalNumber[i]],markersize=7, color='blue',  label='Divergent')
  
     axsi.tick_params(axis='x', labelsize=20)
     axsi.tick_params(axis='y', labelsize=20)
@@ -218,19 +218,19 @@ for i in range(4):
 
     # plot exploitation
 
-    exploitationOrbit=np.load('./Results/AveragedConcentration'+str(nameOrbit[MultimodalNumber[i]])+'.npy')
-    exploitationClassic=np.load('./Results/AveragedConcentration'+str(nameClassic[MultimodalNumber[i]])+'.npy')
-    exploitationHarmonic=np.load('./Results/AveragedConcentration'+str(nameHarmonic[MultimodalNumber[i]])+'.npy')
+    exploitationDivergent=np.load('./Results/AveragedConcentration'+str(nameDivergent[MultimodalNumber[i]])+'.npy')
+    exploitationOverdamped=np.load('./Results/AveragedConcentration'+str(nameOverdamped[MultimodalNumber[i]])+'.npy')
+    exploitationDamped=np.load('./Results/AveragedConcentration'+str(nameDamped[MultimodalNumber[i]])+'.npy')
 
     axsi=axs[l,2]
     l=l+1
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationClassic[0:T_PSOc[MultimodalNumber[i]]],linewidth=2.0,color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationHarmonic[0:T_PSOc[MultimodalNumber[i]]],linewidth=2,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]),exploitationOrbit[0:T_PSOc[MultimodalNumber[i]]],linewidth=2.0,color='blue',  label='Orbit')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationOverdamped[0:T_PSOc[MultimodalNumber[i]]],linewidth=2.0,color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationDamped[0:T_PSOc[MultimodalNumber[i]]],linewidth=2,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]),exploitationDivergent[0:T_PSOc[MultimodalNumber[i]]],linewidth=2.0,color='blue',  label='Divergent')
     
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationClassic[0:T_PSOc[MultimodalNumber[i]]],'s', markevery=ME2[MultimodalNumber[i]], markersize=7, color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationHarmonic[0:T_PSOc[MultimodalNumber[i]]], '^', markevery=ME2[MultimodalNumber[i]],markersize=7,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]),exploitationOrbit[0:T_PSOc[MultimodalNumber[i]]],'o', markevery=ME2[MultimodalNumber[i]],markersize=7 ,color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationOverdamped[0:T_PSOc[MultimodalNumber[i]]],'s', markevery=ME2[MultimodalNumber[i]], markersize=7, color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]), exploitationDamped[0:T_PSOc[MultimodalNumber[i]]], '^', markevery=ME2[MultimodalNumber[i]],markersize=7,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSOc[MultimodalNumber[i]], T_PSOc[MultimodalNumber[i]]),exploitationDivergent[0:T_PSOc[MultimodalNumber[i]]],'o', markevery=ME2[MultimodalNumber[i]],markersize=7 ,color='blue',  label='Divergentr')
     
     axsi.tick_params(axis='x', labelsize=20)
     axsi.tick_params(axis='y', labelsize=20)
@@ -246,19 +246,19 @@ for i in range(4):
     
     # plot exploration
 
-    explorationOrbit=np.load('./Results/Exploration'+str(nameOrbit[MultimodalNumber[i]])+'.npy')
-    explorationClassic=np.load('./Results/Exploration'+str(nameClassic[MultimodalNumber[i]])+'.npy')
-    explorationHarmonic=np.load('./Results/Exploration'+str(nameHarmonic[MultimodalNumber[i]])+'.npy')    
+    explorationDivergent=np.load('./Results/Exploration'+str(nameDivergent[MultimodalNumber[i]])+'.npy')
+    explorationOverdamped=np.load('./Results/Exploration'+str(nameOverdamped[MultimodalNumber[i]])+'.npy')
+    explorationDamped=np.load('./Results/Exploration'+str(nameDamped[MultimodalNumber[i]])+'.npy')    
     
     axsi=axs[l,3]
     l=l+1
-    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationClassic, color='orange', label='Classic')
-    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationOrbit, color='blue', label='Orbit')
-    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationHarmonic, color='green', label='Harmonic')
+    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationOverdamped, color='orange', label='Overdamped')
+    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationDivergent, color='blue', label='Divergent')
+    axsi.plot(np.linspace(1,T_PSO,T_PSO), explorationDamped, color='green', label='Damped')
     
-    axsi.plot(np.linspace(1, T_PSO, T_PSO), explorationClassic[0:T_PSO],'s', markevery=150, markersize=7, color='orange',label='Classic')
-    axsi.plot(np.linspace(1, T_PSO, T_PSO), explorationHarmonic[0:T_PSO], '^', markevery=150,markersize=7,color='green',label='Damped')
-    axsi.plot(np.linspace(1, T_PSO, T_PSO),explorationOrbit[0:T_PSO],'o', markevery=150,markersize=7 ,color='blue',  label='Divergent Oscillator')
+    axsi.plot(np.linspace(1, T_PSO, T_PSO), explorationOverdamped[0:T_PSO],'s', markevery=150, markersize=7, color='orange',label='Overdamped')
+    axsi.plot(np.linspace(1, T_PSO, T_PSO), explorationDamped[0:T_PSO], '^', markevery=150,markersize=7,color='green',label='Damped')
+    axsi.plot(np.linspace(1, T_PSO, T_PSO),explorationDivergent[0:T_PSO],'o', markevery=150,markersize=7 ,color='blue',  label='Divergent')
     
     axsi.set_xlabel('time', fontsize=20)
     axsi.set_ylabel('ratio of found local minima', fontsize=20)

@@ -40,14 +40,14 @@ def fct_local_minima(Parameters, LocalMinima,T_PSO): # Parameters: 'Harmonic', '
 
     # find the name w.r.t the parameters
 
-    if Parameters=='Harmonic':
-        name=nameHarmonic[function_number]
+    if Parameters=='Damped':
+        name=nameDamped[function_number]
     
-    if Parameters=='Classic':
-        name=nameClassic[function_number]
+    if Parameters=='Overdamped':
+        name=nameOverdamped[function_number]
     
-    if Parameters=='Orbit':
-        name=nameOrbit[function_number]
+    if Parameters=='Divergent':
+        name=nameDivergent[function_number]
     
     # calculate the average number of local minima found at time t for each simulation
 
@@ -87,18 +87,18 @@ def fct_local_minima(Parameters, LocalMinima,T_PSO): # Parameters: 'Harmonic', '
 
 #%% Calculate exploration for all parameters and all multimodal functions
 
-ExplorationO=fct_local_minima('Orbit', LocalMinimaSchwefel,T_PSO)
-ExplorationH=fct_local_minima('Harmonic', LocalMinimaSchwefel,T_PSO)
-ExplorationC=fct_local_minima('Classic', LocalMinimaSchwefel,T_PSO)
+ExplorationDivergent=fct_local_minima('Divergent', LocalMinimaSchwefel,T_PSO)
+ExplorationDamped=fct_local_minima('Damped', LocalMinimaSchwefel,T_PSO)
+ExplorationOverdamped=fct_local_minima('Overdamped', LocalMinimaSchwefel,T_PSO)
 
-ExplorationO=fct_local_minima('Orbit', LocalMinimaRastrigin,T_PSO)
-ExplorationH=fct_local_minima('Harmonic', LocalMinimaRastrigin,T_PSO)
-ExplorationC=fct_local_minima('Classic', LocalMinimaRastrigin,T_PSO)
+ExplorationDivergent=fct_local_minima('Divergent', LocalMinimaRastrigin,T_PSO)
+ExplorationDamped=fct_local_minima('Damped', LocalMinimaRastrigin,T_PSO)
+ExplorationOverdamped=fct_local_minima('Overdamped', LocalMinimaRastrigin,T_PSO)
 
-ExplorationO=fct_local_minima('Orbit', LocalMinimaGriewank,T_PSO)
-ExplorationH=fct_local_minima('Harmonic', LocalMinimaGriewank,T_PSO)
-ExplorationC=fct_local_minima('Classic', LocalMinimaGriewank,T_PSO)
+ExplorationDivergent=fct_local_minima('Divergent', LocalMinimaGriewank,T_PSO)
+ExplorationDamped=fct_local_minima('Damped', LocalMinimaGriewank,T_PSO)
+ExplorationOverdamped=fct_local_minima('Overdamped', LocalMinimaGriewank,T_PSO)
 
-ExplorationO=fct_local_minima('Orbit', LocalMinimaHM,T_PSO)
-ExplorationH=fct_local_minima('Harmonic', LocalMinimaHM,T_PSO)
-ExplorationC=fct_local_minima('Classic', LocalMinimaHM,T_PSO)
+ExplorationDivergent=fct_local_minima('Divergent', LocalMinimaHM,T_PSO)
+ExplorationDamped=fct_local_minima('Damped', LocalMinimaHM,T_PSO)
+ExplorationOverdamped=fct_local_minima('Overdamped', LocalMinimaHM,T_PSO)

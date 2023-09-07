@@ -9,62 +9,62 @@ for function_number in range(8):
 
     fct=FunctionList[function_number]
     
-    #%% Mean Orbit 
+    #%% Mean Divergent 
             
-    LossO=np.zeros(T_PSO) # LossO gives the mean function value of the swarm at time t
+    LossDivergent=np.zeros(T_PSO) # LossO gives the mean function value of the swarm at time t
     for t in range(T_PSO):
         
         List=[]
         for s in range(sim):
             # load global best position of simulation s
-            OrbitG=np.load(path+'G_s'+str(nameOrbit[function_number])+str(s)+'.npy')
+            DivergentG=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy')
             # evaluate function at global best position
-            functionvalue=fct(OrbitG[:,t])
+            functionvalue=fct(DivergentG[:,t])
             List.append(functionvalue)
         
         # calculate the mean function value of the swarm at time t for each function
-        LossO[t]=np.mean(List)
+        LossDivergent[t]=np.mean(List)
 
-    np.save('./Results/Mean'+str(nameOrbit[function_number])+'', LossO)
+    np.save('./Results/Mean'+str(nameDivergent[function_number])+'', LossDivergent)
 
 
-    #%% Mean Harmonic
+    #%% Mean Damped
             
-    LossH=np.zeros(T_PSO)
+    LossDamped=np.zeros(T_PSO)
     for t in range(T_PSO):
         
         fct=FunctionList[function_number]
         List=[]
         for s in range(sim):
             # load global best position of simulation s
-            HarmonicG=np.load(path+'G_s'+str(nameHarmonic[function_number])+str(s)+'.npy')
+            DampedG=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy')
             # evaluate function at global best position
-            functionvalue=fct(HarmonicG[:,t])
+            functionvalue=fct(DampedG[:,t])
             List.append(functionvalue)
 
         # calculate the mean function value of the swarm at time t for each function   
-        LossH[t]=np.mean(List)
+        LossDamped[t]=np.mean(List)
 
     # save the results
-    np.save('./Results/Mean'+str(nameHarmonic[function_number])+'', LossH)
+    np.save('./Results/Mean'+str(nameDamped[function_number])+'', LossDamped)
 
-    #%% Mean Classic
+    #%% Mean Overdamped
             
-    LossC=np.zeros(T_PSO)
+    LossOverdamped=np.zeros(T_PSO)
     for t in range(T_PSO):
         
         fct=FunctionList[function_number]
         List=[]
         for s in range(sim):
             # load global best position of simulation s
-            ClassicG=np.load(path+'G_s'+str(nameClassic[function_number])+str(s)+'.npy')
+            OverdampedG=np.load(path+'G_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
             # evaluate function at global best position
-            functionvalue=fct(ClassicG[:,t])
+            functionvalue=fct(OverdampedG[:,t])
             List.append(functionvalue)
         # calculate the mean function value of the swarm at time t for each function
-        LossC[t]=np.mean(List)
+        LossOverdamped[t]=np.mean(List)
 
-    np.save('./Results/Mean'+str(nameClassic[function_number])+'', LossC)
+    np.save('./Results/Mean'+str(nameOverdamped[function_number])+'', LossOverdamped)
 
     #%% Concentration of particles around globale best
 
@@ -82,29 +82,29 @@ for function_number in range(8):
 
     #%%
     
-    ConcentrationHarmonic=np.zeros(T_PSO)
-    ConcentrationClassic=np.zeros(T_PSO)
-    ConcentrationOrbit=np.zeros(T_PSO)
+    ConcentrationDamped=np.zeros(T_PSO)
+    ConcentrationOverdamped=np.zeros(T_PSO)
+    ConcentrationDivergent=np.zeros(T_PSO)
     for s in range(sim):
         # load global best position of simulation s and positions of all particles
 
-        G_Harmonic=np.load(path+'G_s'+str(nameHarmonic[function_number])+str(s)+'.npy')
-        G_Classic=np.load(path+'G_s'+str(nameClassic[function_number])+str(s)+'.npy')
-        G_Orbit=np.load(path+'G_s'+str(nameOrbit[function_number])+str(s)+'.npy')
+        G_Damped=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy')
+        G_Overdamped=np.load(path+'G_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
+        G_Divergent=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy')
 
-        X_Harmonic=np.load(path+'X_s'+str(nameHarmonic[function_number])+str(s)+'.npy')
-        X_Classic=np.load(path+'X_s'+str(nameClassic[function_number])+str(s)+'.npy')
-        X_Orbit=np.load(path+'X_s'+str(nameOrbit[function_number])+str(s)+'.npy')
+        X_Damped=np.load(path+'X_s'+str(nameDamped[function_number])+str(s)+'.npy')
+        X_Overdamped=np.load(path+'X_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
+        X_Divergent=np.load(path+'X_s'+str(nameDivergent[function_number])+str(s)+'.npy')
 
         # calculate the concentration of particles around the global best
     
-        ConcentrationHarmonic=ConcentrationHarmonic+fct_concentration(X_Harmonic, G_Harmonic, 0.1)
-        ConcentrationClassic=ConcentrationClassic+fct_concentration(X_Classic, G_Classic, 0.1)
-        ConcentrationOrbit=ConcentrationOrbit+fct_concentration(X_Orbit, G_Orbit, 0.1)
+        ConcentrationDamped=ConcentrationDamped+fct_concentration(X_Damped, G_Damped, 0.1)
+        ConcentrationOverdamped=ConcentrationOverdamped+fct_concentration(X_Overdamped, G_Overdamped, 0.1)
+        ConcentrationDivergent=ConcentrationDivergent+fct_concentration(X_Divergent, G_Divergent, 0.1)
     #%%
-    np.save('./Results/AveragedConcentration'+str(nameOrbit[function_number])+'.npy', ConcentrationOrbit/sim)
-    np.save('./Results/AveragedConcentration'+str(nameClassic[function_number])+'.npy', ConcentrationClassic/sim)
-    np.save('./Results/AveragedConcentration'+str(nameHarmonic[function_number])+'.npy', ConcentrationHarmonic/sim)
+    np.save('./Results/AveragedConcentration'+str(nameDivergent[function_number])+'.npy', ConcentrationDivergent/sim)
+    np.save('./Results/AveragedConcentration'+str(nameOverdamped[function_number])+'.npy', ConcentrationOverdamped/sim)
+    np.save('./Results/AveragedConcentration'+str(nameDamped[function_number])+'.npy', ConcentrationDamped/sim)
 
 
     

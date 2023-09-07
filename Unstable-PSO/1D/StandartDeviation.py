@@ -54,28 +54,14 @@ for k in range(300):
             NormEv[i]=fct_abs(ev[i])
         
         WMu[k,j]=np.max(NormEv)
-        WMuReal[k,j]=np.abs(ev[0].real)
-        WMuImag[k,j]=np.abs(ev[0].imag)
-
-        # sign of the real part of the eigenvalue
-        if ev[0].real>0:
-            WMuSign[k,j]=1
-            if 1+w-mu<0:
-                print('error')
-        elif ev[0].real<0:
-            if 1+w-mu>0:
-                print('error')
-
-
-#%% Blackwell stbaility conditions
-
-Blackwell=[]              
-for k in range(300):
-    for j in range(300):  
-        if 4*(1-W[k]**2)-2*7/6*Mu[j]+5/6*W[k]*Mu[j]*2>=0:
-            Blackwell.append([W[k],Mu[j]])
-            
         
+        M1=np.array([[1+w-mu,-w],[1,0]])
+        ev1, ew1=np.linalg.eig(M1)
+        WMuReal[k,j]=np.abs(ev1[0].real)
+        WMuImag[k,j]=np.abs(ev1[0].imag)
+
+       
+
 
 #%% Harmonic oscillatory region: get all paris of w, mu that satisfy w**2+mu**2-2*w*mu-2*w+2*mu+1<0
 Harmonic=[]
@@ -94,6 +80,21 @@ for k in range(300):
             SecondOrder.append([W[k],Mu[j]])
 
 #%% get all first order stable pairs 
+from matplotlib.colors import LinearSegmentedColormap
+# Define custom colors for your colormap
+colors = [(0.0, 'red'),        # Color for values < 0
+          (0.1, 'darkorange'),     # Color transition from 0 to 1
+          (0.2, 'yellow'),      # Color transition from 0 to 1
+          (0.3, 'lime'),       # Color transition from 1 to 3
+          (0.4, 'cyan'),    # Color transition from 1 to 3
+          (0.6, 'blue'),
+          (0.85, 'blueviolet'),
+          (1.0, 'fuchsia')]        # Color for values >=3 
+
+# Create the custom colormap
+Cmap = LinearSegmentedColormap.from_list('custom_RdYlGn', colors)
+Vmax=2.5
+Vmin=0
 
 FirstOrder=[]
 for k in range(300):
@@ -101,33 +102,9 @@ for k in range(300):
         if 2*W[k]-Mu[j]+2>0 and -1<W[k]<1:  
             FirstOrder.append([W[k],Mu[j]])
 
-#%% Plot Blackwell region and Second order stable region in one plot and the spectral radius in the background
-
-fig=plt.figure(figsize=(12, 7))
-ax = fig.add_subplot(111)
-ax.imshow(WMu,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
-ax.tick_params(labelsize=26)
-ax.set_xlabel(r'$\mu$', fontsize=30)
-
-# plot the blackwell region
-Blackwell=np.array(Blackwell)
-hullB=ConvexHull(Blackwell)
-for simplex in hullB.simplices:
-    ax.plot(Blackwell[simplex, 1], Blackwell[simplex, 0],linewidth=5, color='black' )
-
-# plot the second order stable region
-SecondOrder=np.array(SecondOrder)
-hullS=ConvexHull(SecondOrder)
-for simplex in hullS.simplices:
-    ax.plot(SecondOrder[simplex, 1], SecondOrder[simplex, 0],linewidth=5, color='black' )
-    
-
-DDD
-
-#%%
 fig, axs = plt.subplots(3, 2, figsize=(12, 14), sharex='col', gridspec_kw={'hspace': -0.3})
 
-axs[1,0].imshow(WMu,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+axs[1,0].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[1,0].tick_params(labelsize=26)
 axs[1,0].set_title('Spectral Radius', fontsize=30)
 
@@ -161,7 +138,7 @@ axs[2,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
 FirstOrder=np.array(FirstOrder)
 hullF=ConvexHull(FirstOrder)
 legend_fontsize=26
-axs[1,1].imshow(WMu,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+axs[1,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 for simplex in hullF.simplices:
     axs[1,1].plot(FirstOrder[simplex, 1], FirstOrder[simplex, 0],linewidth=5, color='black' )
 axs[1,1].tick_params(labelsize=26)
@@ -173,7 +150,7 @@ axs[1,1].legend(bbox_to_anchor=(-1.41, 2.8, 1, 0.6), loc="upper left",ncol=3,  p
 
 SecondOrder=np.array(SecondOrder)
 hullS=ConvexHull(SecondOrder)
-im=axs[2,0].imshow(WMu,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+im=axs[2,0].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[2,0].tick_params(labelsize=26)
 
 axs[2,0].set_title('2-order Stable', fontsize=30)
@@ -184,7 +161,7 @@ for simplex in hullS.simplices:
 # shadow the region of the second order stable region
 
 
-axs[2,1].imshow(WMu,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+axs[2,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[2,1].tick_params(labelsize=26)
 axs[2,1].tick_params(labelsize=26)
 axs[2,1].set_title('Harmonic Oscillatory', fontsize=30)
@@ -242,45 +219,30 @@ axs[2, 1].add_patch(polygon)
 
 # plot the real WMuReal and WMuImag int the first row
 
-axs[0,0].imshow(WMuReal,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+axs[0,0].imshow(WMuReal,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[0,0].tick_params(labelsize=26)
 axs[0,0].set_title('Real Part', fontsize=30)
 
 # shade the area where the sign of the real part of the eigenvalue is negative in the same plot
 
 # get all points where real part is positive
-RealPositive=[]
-for k in range(300):
-    for j in range(300):
-        if WMuSign[k,j]==1:
-            RealPositive.append([W[k],Mu[j]])
-
-RealPositive=np.array(RealPositive)
-hullSign=ConvexHull(RealPositive)
-
-x_hullS = RealPositive[hullSign.vertices, 1]
-y_hullS =RealPositive[hullSign.vertices, 0]
-
-# Append the first data point at the end to create a closed path
-x_hullS_closed = np.append(x_hullS, x_hullS[0])
-y_hullS_closed = np.append(y_hullS, y_hullS[0])
 
 
 
-axs[0,1].imshow(WMuImag,  interpolation='nearest',cmap='hsv', vmin=-0.1, vmax=1.2, extent=[0.01, 3.99, -1, 1.1])
+axs[0,1].imshow(WMuImag,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[0,1].tick_params(labelsize=26)
 axs[0,1].set_title('Imaginary Part', fontsize=30)
 
-axs[0,0].plot(1.4,0.7, 's', markersize=10, color='black', label='Classic')
+axs[0,0].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
 axs[0,0].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
 axs[0,0].plot(0.14,1, 'o', markersize=10, color='black')
-axs[0,0].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent Oscillator')
+axs[0,0].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
 
 
-axs[0,1].plot(1.4,0.7, 's', markersize=10, color='black', label='Classic')
+axs[0,1].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
 axs[0,1].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
 axs[0,1].plot(0.14,1, 'o', markersize=10, color='black')
-axs[0,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent Oscillator')
+axs[0,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
 
 # make a box only under the last row  in the centre with latex label \mu
 fig.text(0.04, 0.5, r'$w$', fontsize=20, va='center', rotation='vertical', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
@@ -340,7 +302,7 @@ def fct_std(T,mu,w,l,g, omega): # T: number of timesteps, mu: social learning ra
     
 
     zstar=np.linalg.inv(np.identity(5)-M).dot(b)
-    print(zstar, 'equilibrium point')
+    print(zstar, 'fixed point')
     return Z,STD
 
 
@@ -351,30 +313,30 @@ g=0.5 # global best position in stagnation
 omega=1 # range of initialiconditons of particles and velocity: x-Unif[-omega,omega], v-Unif[-omega,omega
 
 
-w_C, mu_C=0.7, 1.4 # classic PSO parameters
-phi_C=mu_C
+w_overdamped, mu_overdamped=0.7, 1.4 # classic PSO parameters
+phi_overdamped=mu_overdamped
 
 
-p_C=(mu_C*l+phi_C*g)/(mu_C+phi_C)
-Z_C, STD_C=fct_std(T,mu_C, w_C, l,g, omega)
-pst_C=0.5*np.sqrt((mu_C*(w_C+1))/(mu_C*(5*w_C-7)-12*w_C**2+12))*np.abs(l-g)
+p_overdamped=(mu_overdamped*l+phi_overdamped*g)/(mu_overdamped+phi_overdamped)
+Z_overdamped, STD_overdamped=fct_std(T,mu_overdamped, w_overdamped, l,g, omega)
+pst_overdamped=0.5*np.sqrt((mu_overdamped*(w_overdamped+1))/(mu_overdamped*(5*w_overdamped-7)-12*w_overdamped**2+12))*np.abs(l-g)
 
-w_O, mu_O=1, 0.14 # divergent oscillating PSO parameters
-phi_O=mu_O
-
-
-p_O=(mu_O*l+phi_O*g)/(mu_O+phi_O)
-Z_O, STD_O=fct_std(T,mu_O, w_O, l,g,omega)
-pst_O=0.5*np.sqrt((mu_O*(w_O+1))/(mu_O*(5*w_O-7)-12*w_O**2+12))*np.abs(l-g)
+w_divergent, mu_divergent=1, 0.14 # divergent oscillating PSO parameters
+phi_divergent=mu_divergent
 
 
-w_H, mu_H=0.958058, 0.3215 # damped PSO parameters
-phi_H=mu_H
+p_divergent=(mu_divergent*l+phi_divergent*g)/(mu_divergent+phi_divergent)
+Z_divergent, STD_divergent=fct_std(T,mu_divergent, w_divergent, l,g,omega)
+pst_O=0.5*np.sqrt((mu_divergent*(w_divergent+1))/(mu_divergent*(5*w_divergent-7)-12*w_divergent**2+12))*np.abs(l-g)
 
 
-p_H=(mu_H*l+phi_H*g)/(mu_H+phi_H)
-Z_H, STD_H=fct_std(T,mu_H, w_H,l,g, omega)
-pst_H=0.5*np.sqrt((mu_H*(w_H+1))/(mu_H*(5*w_H-7)-12*w_H**2+12))*np.abs(l-g)
+w_damped, mu_damped=0.958058, 0.3215 # damped PSO parameters
+phi_damped=mu_damped
+
+
+p_damped=(mu_damped*l+phi_damped*g)/(mu_damped+phi_damped)
+Z_damped, STD_damped=fct_std(T,mu_damped, w_damped,l,g, omega)
+pst_damped=0.5*np.sqrt((mu_damped*(w_damped+1))/(mu_damped*(5*w_damped-7)-12*w_damped**2+12))*np.abs(l-g)
 
 #%% create a figure with 3 columns and 1 row
 legend_fontsize=30
@@ -383,31 +345,31 @@ plt.subplots_adjust(top=0.78, bottom=0.22,left=0.05, right=0.95)
 
 # classic statistics
 
-axs[0].set_title('Classic', fontsize=30)
-axs[0].plot(np.linspace(0,T-1, T), Z_C[0,:], label='mean')
-axs[0].plot(np.linspace(0,T-1, T), np.ones(T)*p_C,color='red', label='g')
-axs[0].plot(np.linspace(0,T-1, T), STD_C)
-axs[0].plot(np.linspace(0,T-1, T), Z_C[2,:])
+axs[0].set_title('Overdamped', fontsize=30)
+axs[0].plot(np.linspace(0,T-1, T), Z_overdamped[0,:], label='mean')
+axs[0].plot(np.linspace(0,T-1, T), np.ones(T)*p_overdamped,color='red', label='g')
+axs[0].plot(np.linspace(0,T-1, T), STD_overdamped)
+axs[0].plot(np.linspace(0,T-1, T), Z_overdamped[2,:])
 axs[0].tick_params(axis='both', which='major', labelsize=30)
 axs[0].set_xlabel('time', fontsize=30)
 axs[0].set_ylim(-0.5,2)
 
 # diverg. oscillating statistics
 axs[1].set_title('Damped', fontsize=30)
-axs[1].plot(np.linspace(0,T-1, T), Z_H[0,:])
-axs[1].plot(np.linspace(0,T-1, T), np.ones(T)*p_H,color='red')
-axs[1].plot(np.linspace(0,T-1, T), STD_H, label='std')
-axs[1].plot(np.linspace(0,T-1, T), Z_H[2,:])
+axs[1].plot(np.linspace(0,T-1, T), Z_damped[0,:])
+axs[1].plot(np.linspace(0,T-1, T), np.ones(T)*p_damped,color='red')
+axs[1].plot(np.linspace(0,T-1, T), STD_damped, label='std')
+axs[1].plot(np.linspace(0,T-1, T), Z_damped[2,:])
 axs[1].set_xlabel('time', fontsize=30)
 axs[1].tick_params(axis='both', which='major', labelsize=30)
 axs[1].set_ylim(-0.5,10)
 
 # damped statistics
-axs[2].set_title('Divergent Oscillator', fontsize=30)
-axs[2].plot(np.linspace(0,T-1, T), Z_O[0,:], label='mean')
-axs[2].plot(np.linspace(0,T-1, T), STD_O, label='std')
-axs[2].plot(np.linspace(0,T-1, T), Z_O[2,:], label='second moment')
-axs[2].plot(np.linspace(0,T-1, T), np.ones(T)*p_O,color='red', label='g')
+axs[2].set_title('Divergent', fontsize=30)
+axs[2].plot(np.linspace(0,T-1, T), Z_divergent[0,:], label='mean')
+axs[2].plot(np.linspace(0,T-1, T), STD_divergent, label='std')
+axs[2].plot(np.linspace(0,T-1, T), Z_divergent[2,:], label='second moment')
+axs[2].plot(np.linspace(0,T-1, T), np.ones(T)*p_divergent,color='red', label='g')
 axs[2].set_xlabel('time', fontsize=30)
 axs[2].tick_params(axis='both', which='major', labelsize=30)
 axs[2].set_ylim(-0.5,60)

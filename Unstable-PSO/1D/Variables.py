@@ -11,7 +11,7 @@ dim=1
 
 # rates
 
-def Orbit():
+def Divergent():
     
     w=1
     mu=0.14035087719298245
@@ -19,34 +19,34 @@ def Orbit():
     
     return w, mu
 
-def Harmonic():
+def Damped():
 
     mu=0.3215
     w=0.958058
     
     return w, mu
 
-def Classic():
+def Overdamped():
     
     w=0.7
     mu=1.4
     
     return w, mu
 
-w_o, mu_o=Orbit()
-w_h, mu_h=Harmonic()
-w_c, mu_c=Classic()
+w_divergent, mu_divergent=Divergent()
+w_damped, mu_damped=Damped()
+w_overdamped, mu_overdamped=Overdamped()
 
 # generate names for each test function, to save results
 
-nameOrbit=[]
-nameClassic=[]
-nameHarmonic=[]
+nameDivergent=[]
+nameOverdamped=[]
+nameDamped=[]
 
 for function_number in range(8):
-    nameOrbit.append(str(function_number)+str('Orbit')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO))
-    nameClassic.append(str(function_number)+str('Classic')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO))
-    nameHarmonic.append(str(function_number)+str('Harmonic')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO))
+    nameDivergent.append(str(function_number)+str('Divergent')+'Mu'+str(mu_divergent)+'Particle'+str(n)+'T'+str(T_PSO))
+    nameOverdamped.append(str(function_number)+str('Overdamped')+'Mu'+str(mu_overdamped)+'Particle'+str(n)+'T'+str(T_PSO))
+    nameDamped.append(str(function_number)+str('Damped')+'Mu'+str(mu_damped)+'Particle'+str(n)+'T'+str(T_PSO))
 
 
 # define path where to save simulations

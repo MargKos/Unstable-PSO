@@ -115,8 +115,8 @@ for function_number in range(8):
     # run all three parameter combinations
     
 
-    PSO(simulation, nameOrbit[function_number],w_o, mu_o)
-    PSO(simulation, nameHarmonic[function_number], w_h, mu_h)
-    PSO(simulation, nameClassic[function_number], w_c, mu_c)
+    PSO(simulation, nameDivergent[function_number],w_divergent, mu_divergent)
+    PSO(simulation, nameDamped[function_number], w_damped, mu_damped)
+    PSO(simulation, nameOverdamped[function_number], w_overdamped, mu_overdamped)
 
 
