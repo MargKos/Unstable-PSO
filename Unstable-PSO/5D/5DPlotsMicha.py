@@ -41,9 +41,9 @@ fig, axs = plt.subplots(rows, cols, figsize=(7.5 * cols, 5.5 * rows))
 k=0
 l=0
 
-T_Orbit=30
-T_Classic=1000
-T_Damping=1000
+T_Divergent=30
+T_Overdamped=1000
+T_Damped=1000
 
 for i in range(5):
     for j in range(5):

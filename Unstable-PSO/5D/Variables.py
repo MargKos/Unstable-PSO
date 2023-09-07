@@ -4,21 +4,21 @@ from Functions import *
 # Learning Parameters
 
 
-def Orbit():
+def Divergent():
     
     w=1
     mu=0.03
     
     return w, mu
 
-def Harmonic():
+def Damped():
 
     mu=0.3215
     w=0.958058
     
     return w, mu
 
-def Classic():
+def Overdamped():
     
     w=0.7
     mu=1.4
@@ -26,9 +26,9 @@ def Classic():
     return w, mu
 
 
-w_o, mu_o=Orbit()
-w_h, mu_h=Harmonic()
-w_c, mu_c=Classic()
+w_o, mu_o=Divergent()
+w_h, mu_h=Damped()
+w_c, mu_c=Overdamped()
 
 
 # Simulation Parameters
@@ -47,10 +47,10 @@ StartWerte=np.load('Uniform5D.npy') # uniform starting points
 # Define Names
 
 
-nameOrbit=str(function_number)+str('Orbit')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
-nameClassic=str(function_number)+str('Classic')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
-nameHarmonic=str(function_number)+str('Harmonic')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDivergent=str(function_number)+str('Divergent')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
+nameOverdamped=str(function_number)+str('Overdamped')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDamped=str(function_number)+str('Damped')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
 
 # path to save the simulations
 
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest2/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Simulations/'

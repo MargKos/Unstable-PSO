@@ -105,8 +105,8 @@ def PSO(start, name, w, mu): # start = number of simulation, name = labelling fo
 
 #%% run all PSO configurations
 
-PSO(simulation, nameOrbit,w_o, mu_o)
-PSO(simulation, nameHarmonic, w_h, mu_h)
-PSO(simulation, nameClassic, w_c, mu_c)
+PSO(simulation, nameDivergent,w_divergent, mu_divergent)
+PSO(simulation, nameDamped, w_damped, mu_damped)
+PSO(simulation, nameOverdamped, w_overdamped, mu_overdamped)
 
 

@@ -20,17 +20,17 @@ def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Harmonic, Classic, 
 
     # load particle positions
 
-    if Parameters=='Harmonic':
-        X=np.load(path+'X_s'+str(nameHarmonic)+str(simulation)+'.npy')
-        name=nameHarmonic
+    if Parameters=='Damped':
+        X=np.load(path+'X_s'+str(nameDamped)+str(simulation)+'.npy')
+        name=nameDamped
 
-    if Parameters=='Classic':
-        X=np.load(path+'X_s'+str(nameClassic)+str(simulation)+'.npy')
-        name=nameClassic
+    if Parameters=='Overdamped':
+        X=np.load(path+'X_s'+str(nameOverdamped)+str(simulation)+'.npy')
+        name=nameOverdamped
     
-    if Parameters=='Orbit':
-        X=np.load(path+'X_s'+str(nameOrbit)+str(simulation)+'.npy')
-        name=nameOrbit
+    if Parameters=='Divergent':
+        X=np.load(path+'X_s'+str(nameDivergent)+str(simulation)+'.npy')
+        name=nameDivergent
 
     AllScores=np.zeros(T_PSO) # AllScores gives nuber of local minima found until time t
     score=np.zeros(len(LocalMinimas)) #score is a binaer vector that is 1 if local minima was found and 0 else
@@ -60,6 +60,6 @@ def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Harmonic, Classic, 
 Eps=np.arange(0,1+0.1,0.1)
 
 for i in range(len(Eps)-1): # loop of different radi
-    fct_local_minima('Orbit',T_PSO,Eps[i+1],simulation)
-    fct_local_minima('Classic',T_PSO,Eps[i+1],simulation) 
-    fct_local_minima('Harmonic',T_PSO,Eps[i+1], simulation)
+    fct_local_minima('Divergent',T_PSO,Eps[i+1],simulation)
+    fct_local_minima('Overdamped',T_PSO,Eps[i+1],simulation) 
+    fct_local_minima('Damped',T_PSO,Eps[i+1], simulation)
