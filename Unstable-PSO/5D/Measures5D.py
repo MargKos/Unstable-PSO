@@ -12,66 +12,66 @@ from Variables import *
 
 # calculate the mean function value of the swarm at each time step
 
-#%% Mean Orbit 
+#%% Mean Divergent
 
-LossO=np.zeros(T_PSO) # LossO gives the mean function value of the swarm at time t
+LossDivergent=np.zeros(T_PSO) # LossDivergent gives the mean function value of the swarm at time t
 for t in range(T_PSO):
     
     fct=FunctionList[function_number]
     List=[]
     for s in range(sim):
         # load global best position of each swarm
-        OrbitG=np.load(path+'G_s'+str(nameOrbit)+str(s)+'.npy', allow_pickle=True)
+        DivergentG=np.load(path+'G_s'+str(nameDivergent)+str(s)+'.npy', allow_pickle=True)
         # calculate function value of each global best position
-        functionvalue=fct(OrbitG[:,t])
+        functionvalue=fct(DivergentG[:,t])
         # append function value to list
         List.append(functionvalue)
 
     # calculate mean function value of each time step   
-    LossO[t]=np.mean(List)
+    LossDivergent[t]=np.mean(List)
 
 # save the results
-np.save('./Results/Mean'+str(nameOrbit)+'', LossO)
+np.save('./Results/Mean'+str(nameDivergent)+'', LossDivergent)
 
 
-#%% Mean Harmonic
+#%% Mean Damped
         
-LossH=np.zeros(T_PSO) # LossH gives the mean function value of the swarm at time t
+LossDamped=np.zeros(T_PSO) # LossDamped gives the mean function value of the swarm at time t
 for t in range(T_PSO):
     
     fct=FunctionList[function_number] # select the right function
     List=[]
     for s in range(sim):
         # load global best position of each swarm
-        HarmonicG=np.load(path+'G_s'+str(nameHarmonic)+str(s)+'.npy', allow_pickle=True)
+        DampedG=np.load(path+'G_s'+str(nameDamped)+str(s)+'.npy', allow_pickle=True)
         # calculate function value of each global best position
-        functionvalue=fct(HarmonicG[:,t])
+        functionvalue=fct(DampedG[:,t])
         # append function value to list
         List.append(functionvalue)
     # calculate mean function value of each time step    
-    LossH[t]=np.mean(List)
+    LossDamped[t]=np.mean(List)
 
 # save the results
-np.save('./Results/Mean'+str(nameHarmonic)+'', LossH)
+np.save('./Results/Mean'+str(nameDamped)+'', LossDamped)
 
-#%% Mean Classic
+#%% Mean Overdamped
         
-LossC=np.zeros(T_PSO) # LossC gives the mean function value of the swarm at time t
+LossOverdamped=np.zeros(T_PSO) # LossOverdamped gives the mean function value of the swarm at time t
 for t in range(T_PSO):
     
     fct=FunctionList[function_number]
     List=[]
     for s in range(sim):
         # load global best position of each swarm
-        ClassicG=np.load(path+'G_s'+str(nameClassic)+str(s)+'.npy', allow_pickle=True)
+        OverdampedG=np.load(path+'G_s'+str(nameOverdamped)+str(s)+'.npy', allow_pickle=True)
         # calculate function value of each global best position
-        functionvalue=fct(ClassicG[:,t])
+        functionvalue=fct(OverdampedG[:,t])
         # append function value to list
         List.append(functionvalue)
     # calculate mean function value of each time step  
-    LossC[t]=np.mean(List)
+    LossOverdamped[t]=np.mean(List)
 # save the results
-np.save('./Results/Mean'+str(nameClassic)+'', LossC)
+np.save('./Results/Mean'+str(nameOverdamped)+'', LossOverdamped)
 
 
 #%% Concentration of particles around globale best
@@ -91,29 +91,29 @@ def fct_concentration(X, Gl,  eps): # X=particle positions, Gl=global best posit
 
 #%% Average Concentration over all simulations
     
-ConcentrationHarmonic=np.zeros(T_PSO)  # ConcentrationHarmonic gives the average concentration of particles around the global best at time t
-ConcentrationClassic=np.zeros(T_PSO)   # ConcentrationClassic gives the average concentration of particles around the global best at time t
+ConcentrationDamped=np.zeros(T_PSO)  # ConcentrationDamped gives the average concentration of particles around the global best at time t
+ConcentrationOverdamped=np.zeros(T_PSO)   # ConcentrationOverdamped gives the average concentration of particles around the global best at time t
 ConcentrationOrbit=np.zeros(T_PSO)     # ConcentrationOrbit gives the average concentration of particles around the global best at time t
 
 for s in range(sim):    
     # load particle positions of each simulation
-    X_Harmonic=np.load(path+'X_s'+str(nameHarmonic)+str(s)+'.npy')
-    X_Classic=np.load(path+'X_s'+str(nameClassic)+str(s)+'.npy')
+    X_Damped=np.load(path+'X_s'+str(nameDamped)+str(s)+'.npy')
+    X_Overdamped=np.load(path+'X_s'+str(nameOverdamped)+str(s)+'.npy')
     X_Orbit=np.load(path+'X_s'+str(nameOrbit)+str(s)+'.npy')
 
     # load global best positions of each simulation
-    G_Harmonic=np.load(path+'G_s'+str(nameHarmonic)+str(s)+'.npy')
-    G_Classic=np.load(path+'G_s'+str(nameClassic)+str(s)+'.npy')
+    G_Damped=np.load(path+'G_s'+str(nameDamped)+str(s)+'.npy')
+    G_Overdamped=np.load(path+'G_s'+str(nameOverdamped)+str(s)+'.npy')
     G_Orbit=np.load(path+'G_s'+str(nameOrbit)+str(s)+'.npy')
 
     # calculate the concentration of particles around the global best and average
-    ConcentrationHarmonic=ConcentrationHarmonic+fct_concentration(X_Harmonic, G_Harmonic, 0.52)
-    ConcentrationClassic=ConcentrationClassic+fct_concentration(X_Classic, G_Classic, 0.52)
+    ConcentrationDamped=ConcentrationDamped+fct_concentration(X_Damped, G_Damped, 0.52)
+    ConcentrationOverdamped=ConcentrationOverdamped+fct_concentration(X_Overdamped, G_Overdamped, 0.52)
     ConcentrationOrbit=ConcentrationOrbit+fct_concentration(X_Orbit, G_Orbit, 0.52)
        
 #%%
 # save the results
 np.save('./Results/AverageConcentration'+str(nameOrbit)+'.npy', ConcentrationOrbit/sim)
-np.save('./Results/AverageConcentration'+str(nameClassic)+'.npy', ConcentrationClassic/sim)
-np.save('./Results/AverageConcentration'+str(nameHarmonic)+'.npy', ConcentrationHarmonic/sim)
+np.save('./Results/AverageConcentration'+str(nameOverdamped)+'.npy', ConcentrationOverdamped/sim)
+np.save('./Results/AverageConcentration'+str(nameDamped)+'.npy', ConcentrationDamped/sim)
 

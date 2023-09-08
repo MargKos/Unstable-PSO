@@ -26,9 +26,9 @@ def Overdamped():
     return w, mu
 
 
-w_o, mu_o=Divergent()
-w_h, mu_h=Damped()
-w_c, mu_c=Overdamped()
+w_divergent, mu_divergent=Divergent()
+w_damped, mu_damped=Damped()
+w_overdamped, mu_overdamped=Overdamped()
 
 
 # Simulation Parameters
@@ -47,9 +47,9 @@ StartWerte=np.load('Uniform5D.npy') # uniform starting points
 # Define Names
 
 
-nameDivergent=str(function_number)+str('Divergent')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
-nameOverdamped=str(function_number)+str('Overdamped')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
-nameDamped=str(function_number)+str('Damped')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDivergent=str(function_number)+str('Divergent')+'Mu'+str(mu_divergent)+'Particle'+str(n)+'T'+str(T_PSO)
+nameOverdamped=str(function_number)+str('Overdamped')+'Mu'+str(mu_overdamped)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDamped=str(function_number)+str('Damped')+'Mu'+str(mu_damped)+'Particle'+str(n)+'T'+str(T_PSO)
 
 # path to save the simulations
 

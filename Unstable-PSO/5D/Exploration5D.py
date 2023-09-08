@@ -4,17 +4,17 @@ from Variables import *
 
 #%% average the number of found local minima that were calculated in Exploration5DMultiprocessing
 
-def fct_average(Parameters, eps): # Paramerter: Harmonic, Classic, Orbit, eps=radius of ball
+def fct_average(Parameters, eps): # Paramerter: Damped, Overdamped, Divergent eps=radius of ball
     Average=np.zeros(T_PSO) # Average gives the average number of local minima found at time t over all simulations
 
-    if Parameters=='Harmonic':
-        name=nameHarmonic
+    if Parameters=='Damped':
+        name=nameDamped
     
-    if Parameters=='Classic':
-        name=nameClassic
+    if Parameters=='Overdamped':
+        name=nameOverdamped
     
-    if Parameters=='Orbit':
-        name=nameOrbit
+    if Parameters=='Divergent':
+        name=nameDivergent
 
     # load the data of each simulation and average it
     for s in range(sim):
@@ -30,17 +30,17 @@ Eps=np.arange(0,1+0.1,0.1)
                         
 for i in range(len(Eps)-1):
 
-    AverageScoreOrbit=fct_average('Orbit', Eps[i+1])
-    AverageScoreHarmonic=fct_average('Harmonic', Eps[i+1])
-    AverageScoreClassic=fct_average('Classic', Eps[i+1]) 
+    AverageScoreDivergent=fct_average('Divergent', Eps[i+1])
+    AverageScoreDamped=fct_average('Damped', Eps[i+1])
+    AverageScoreOverdamped=fct_average('Overdamped', Eps[i+1]) 
 
     # save the results
 
-    np.save('./Results/AverageScore'+str(nameOrbit)+str(Eps[i+1]),AverageScoreOrbit )
+    np.save('./Results/AverageScore'+str(nameDivergent)+str(Eps[i+1]),AverageScoreDivergent )
     
-    np.save('./Results/AverageScore'+str(nameHarmonic)+str(Eps[i+1]), AverageScoreHarmonic)
+    np.save('./Results/AverageScore'+str(nameDamped)+str(Eps[i+1]), AverageScoreDamped)
 
-    np.save('./Results/AverageScore'+str(nameClassic)+str(Eps[i+1]), AverageScoreClassic)
+    np.save('./Results/AverageScore'+str(nameOverdamped)+str(Eps[i+1]), AverageScoreOverdamped)
     
 # Load local minima of Michalewicz function
  
@@ -48,21 +48,21 @@ LocalMinimas=np.load('./LocalMinima/LocalMinimaMichalewicz.npy', allow_pickle=Tr
 
 #%% Calculate the commulative number of local minima found over all simulations
     
-def fct_local_minima(Parameters, sim, T_PSO, eps): # Parameters: Harmonic, Classic, Orbit, eps=radius of ball, sim=number of simualtions, T_PSO=number of iterations, eps=radius of ball
+def fct_local_minima(Parameters, sim, T_PSO, eps): # Parameters: Damped, Overdamped, Divergent, eps=radius of ball, sim=number of simualtions, T_PSO=number of iterations, eps=radius of ball
 
     AllScores = np.zeros(T_PSO) # AllScores gives nuber of local minima found till time t
     score = np.zeros(len(LocalMinimas)) # score is a binaer vector that is 1 if local minima was found and 0 else
     
     # select the right parameters
 
-    if Parameters=='Harmonic':
-        name=nameHarmonic
+    if Parameters=='Damped':
+        name=nameDamped
     
-    if Parameters=='Classic':
-        name=nameClassic
+    if Parameters=='Overdamped':
+        name=nameOverdamped
     
-    if Parameters=='Orbit':
-        name=nameOrbit
+    if Parameters=='Divergent':
+        name=Divergent
     
     # Load the data of each simulation and store it efficiently
 
@@ -99,8 +99,8 @@ print('yes')
 SimulationsNumber=[20,50, 100, 200] # number of simulations for commulative number of local minima
 for s in range(4):
 
-    fct_local_minima('Harmonic', SimulationsNumber[s], 2000, 0.52)
-    fct_local_minima('Classic', SimulationsNumber[s], 2000, 0.52)
-    fct_local_minima('Orbit', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('Damped', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('Overdamped', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('Divergent', SimulationsNumber[s], 2000, 0.52)
 
 

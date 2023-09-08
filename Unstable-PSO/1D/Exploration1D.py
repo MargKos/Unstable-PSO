@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from Variables import *
 
 
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Simulations/'
-
 #%% load local minimas
 
 LocalMinimaRastrigin=np.load('./LocalMinima/LocalMinimaRastrigin.npy') # fct number 1
@@ -16,7 +14,7 @@ LocalMinimaGriewank=np.load('./LocalMinima/LocalMinimaGriewank.npy') # fct numbe
 
 ###
 #%% Count how many local minima were found till time t
-def fct_local_minima(Parameters, LocalMinima,T_PSO): # Parameters: 'Harmonic', 'Classic', 'Orbit'; LocalMinima: LocalMinimaRastrigin, LocalMinimaSchwefel, LocalMinimaGriewank, LocalMinimaHM, T_PSO: number of iterations
+def fct_local_minima(Parameters, LocalMinima,T_PSO): # Parameters: 'Damped', 'Overdamped', 'Divergent'; LocalMinima: LocalMinimaRastrigin, LocalMinimaSchwefel, LocalMinimaGriewank, LocalMinimaHM, T_PSO: number of iterations
     
     AverageScore=np.zeros(T_PSO) # average number of local minima found at time t
     AllScores=np.zeros((sim,T_PSO)) # number of local minima found at time t for each simulation

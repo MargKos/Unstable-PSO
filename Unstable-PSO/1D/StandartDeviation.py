@@ -313,7 +313,7 @@ g=0.5 # global best position in stagnation
 omega=1 # range of initialiconditons of particles and velocity: x-Unif[-omega,omega], v-Unif[-omega,omega
 
 
-w_overdamped, mu_overdamped=0.7, 1.4 # classic PSO parameters
+w_overdamped, mu_overdamped=0.7, 1.4 # overdamped PSO parameters
 phi_overdamped=mu_overdamped
 
 
@@ -343,7 +343,7 @@ legend_fontsize=30
 fig, axs = plt.subplots(1, 3, figsize=(20,7))
 plt.subplots_adjust(top=0.78, bottom=0.22,left=0.05, right=0.95)
 
-# classic statistics
+# overdamped statistics
 
 axs[0].set_title('Overdamped', fontsize=30)
 axs[0].plot(np.linspace(0,T-1, T), Z_overdamped[0,:], label='mean')

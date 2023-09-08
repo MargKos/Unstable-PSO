@@ -16,7 +16,7 @@ else:
 LocalMinimas=np.load('./LocalMinima/LocalMinimaMichalewicz.npy', allow_pickle=True)
 
 #%% Count how many local minima were found till time t
-def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Harmonic, Classic, Orbit, eps=radius of ball,s=number of simualtion
+def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Damped, Overdamped, Divergent, eps=radius of ball,s=number of simualtion
 
     # load particle positions
 

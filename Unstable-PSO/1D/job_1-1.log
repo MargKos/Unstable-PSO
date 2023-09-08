@@ -1,0 +1,24 @@
+Fr 8. Sep 14:10:44 CEST 2023
+htc-cmp143
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/1D
+
+Hello! This is task number 0
+Fr 8. Sep 14:10:57 CEST 2023
+Fr 8. Sep 14:10:57 CEST 2023
+htc-cmp143
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/1D
+/usr/lib/python3/dist-packages/numpy/core/_asarray.py:136: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  return array(a, dtype, copy=False, order=order, subok=True)
+6
+6
+6
+1
+1
+1
+7
+7
+7
+5
+5
+5
+Fr 8. Sep 15:07:08 CEST 2023
