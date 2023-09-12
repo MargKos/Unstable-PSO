@@ -30,9 +30,10 @@ else:
 
 # define PSO
 
-def PSO_s(start, name, w, mu):
-    np.random.seed(int(start))
+def PSO_s(start, name, w, mu): # start is the number of the starting point, name is the name of the simulation, w and mu are the parameters of PSO
+    np.random.seed(int(start)) # set seed for each starting point
 
+    # set start values
     X0 = np.copy(StartWerte[0:dim, :, start])
     
     # create an array will global best positions of the swarm of each time-step
@@ -45,7 +46,9 @@ def PSO_s(start, name, w, mu):
     for i in range(n-1):
         if fct_Rastrigin(X0[:,i+1])<fct_Rastrigin(g_best):
             g_best=X0[:,i+1]
-    
+
+    # initialize global best position of the swarm
+
     Gbest[:,0]=g_best
 
     # calculate the fct value of each particle of X0
@@ -55,23 +58,21 @@ def PSO_s(start, name, w, mu):
     for i in range(n):
         fct_value[i]=fct_Rastrigin(X0[:,i])
 
+    # initialize velocity of each particle
+
     v0=np.zeros((dim,n))
 
     # give the local best position of each particle
 
     p_best=X0
 
-  
     # create for each particle an empty list that will be filled later with the number of iterations it did not change the local best position
-
   
-        
     ParticlesPositions=np.empty([dim, n,T_PSO_short]) # only for short runs
 
     ParticlesPositions[:,:,0]=X0
     for t in range(T_PSO_short-1):
         
-
         # calculate the velocity of each particle
 
         for i in range(n):
@@ -81,6 +82,8 @@ def PSO_s(start, name, w, mu):
         # calculate the position of each particle
 
         X0=X0+v0
+
+        # save the position of each particle
         ParticlesPositions[:,:,t+1]=X0
 
         # calculate the fct value of each particle
@@ -103,13 +106,12 @@ def PSO_s(start, name, w, mu):
         
         Gbest[:,t+1]=g_best
     
-    
+    # save particles positions
     np.save(path+'X_s' + str(name) + str(start) + '.npy', ParticlesPositions)
-    
     
     return Gbest, ParticlesPositions
 
-#%%
+#%% run PSO for each simulation
 
 Go,Xo=PSO_s(simulation, nameOrbit,w_o, mu_o)
 Gh,Xh=PSO_s(simulation, nameHarmonic, w_h, mu_h)

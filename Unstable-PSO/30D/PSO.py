@@ -12,9 +12,10 @@ import matplotlib.pyplot as plt
 from multiprocessing import Pool
 from functools import partial
 from multiprocessing import Pool
-from Rastrigin_fct import *       
+from Rastrigin_fct import *  
+from Variables import *     
 import sys
-from Variables import *
+
 
 # Print task number
 if len(sys.argv) < 2:
@@ -25,19 +26,21 @@ else:
     print('\nHello! This is task number', simulation)
 
 
+# define PSO
 
-#%% define PSO
+def PSO(start, name, w, mu, counter): # start is the number of the starting point, name is the name of the simulation, w and mu are the parameters of PSO, counter is the waiting time to locate the local minima
 
-def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, mu: learning rate, counter: number of iterations a particle has to stay in the same local minimum to be saved, start: number of the start value
-    np.random.seed(int(start)) # set seed for reproducibility
+    np.random.seed(int(start)) # set seed for each starting point
 
-    X0 = StartWerte[0:dim, :, start] # start values for each particle
+    # set start values
+
+    X0 = np.copy(StartWerte[0:dim, :, start])
 
     # create an array will global best positions of the swarm of each time-step
 
-    Gbest=np.zeros((dim, T_PSO)) # dim: dimension of the problem, T_PSO: number of time-steps
+    Gbest=np.zeros((dim, T_PSO))
 
-    # find the best X0 value for each particle and the whole swarm 
+    # find the best X0 value for each particle and the whole swarm
 
     g_best=X0[:,0]
     for i in range(n-1):
@@ -46,7 +49,7 @@ def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, m
     
     Gbest[:,0]=g_best
 
-    # calculate the fct value of each particle of X0
+    # calculate the fct value of each particle of X0, to determine the local best position of each particle in the next step
 
     fct_value=np.zeros(n)
 
@@ -57,21 +60,18 @@ def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, m
 
     # give the local best position of each particle
 
-    p_best=X0 
+    p_best=X0
 
-    # save local minima
+    # save local minima and the times they were found
 
     Minima=[] # list of local minima
-    TimesMinima=[] # list of time-steps when local minima were found
+    TimesMinima=[] # list of times the local minima were found
 
-    # do the time-iteration of PSO T_PSO-1 times
-    
-    count=np.zeros(n) # counter with the number of iterations it did not change the local best position
-
+    count=np.zeros(n) # counts for each particle the number of iterations it did not change the local best position
     
     # create for each particle an empty list that will be filled later with the number of iterations it did not change the local best position
-
-    NumberofIterations=[None]*n 
+    # for statistics about waiting times
+    NumberofIterations=[None]*n
 
     for i in range(n):
         NumberofIterations[i]=[]
@@ -82,12 +82,12 @@ def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, m
 
         for i in range(n):
             v0[:,i]=w*v0[:,i]+mu*np.random.rand()*(p_best[:,i]-X0[:,i])+mu*np.random.rand()*(g_best-X0[:,i])
+            #v0[:,i]=w*v0[:,i]+mu*np.random.uniform(0,1,30)*(p_best[:,i]-X0[:,i])+mu*np.random.uniform(0,1,30)*(g_best-X0[:,i])
         
         # calculate the position of each particle
 
         X0=X0+v0
         
-
         # calculate the fct value of each particle
         
         for i in range(n):
@@ -97,14 +97,18 @@ def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, m
 
         for i in range(n):
             if fct_value[i]<fct_Rastrigin(p_best[:,i]):
-                p_best[:,i]=X0[:,i] # update the local best position
+                p_best[:,i]=X0[:,i]
+                # save the number of iterations it did not change the local best position
                 NumberofIterations[i].append(count[i])
-                if count[i]>counter: # if the particle did not change its local best position for counter iterations, save it as a local minimum
-                    Minima.append(X0[:,i])   # save the local minimum
-                    TimesMinima.append(t)    # save the time-step when the local minimum was found
-                count[i]=0 # reset the counter
+                # if the number of iterations it did not change the local best position is greater than the waiting time to locate the local minima, save the local minima and the time it was found
+                if count[i]>counter:
+                    Minima.append(X0[:,i])  
+                    TimesMinima.append(t)
+                # reset the counter
+                count[i]=0
             else:
-                count[i]=count[i]+1 # increase the counter by 1
+                # if the local best position did not change, increase the counter
+                count[i]=count[i]+1
 
         # update the global best position of the swarm
 
@@ -113,27 +117,21 @@ def PSO(start, name, w, mu, counter): # name: how to save the file, w: weight, m
                 g_best=X0[:,i]
         
         Gbest[:,t+1]=g_best
+    # save the results
+    np.save(path+'G_s' + str(name) + str(start) + '.npy', Gbest)
+    np.save(path+'Minima_s' + str(name) + str(start) + '.npy', Minima)
+    np.save(path+'NumberofIterations_s' + str(name) + str(start) + '.npy', NumberofIterations)
+    np.save(path+'TimesMinima_s' + str(name) + str(start) + '.npy', TimesMinima)
     
-    np.save(path+'G_s' + str(name) + str(start) + '.npy',  Gbest) # save the global best position of the swarm
-    np.save(path+'Minima_s' + str(name) + str(start) + '.npy',  Minima) #   save the local minima
-    np.save(path+'TimesMinima_s' + str(name) + str(start) + '.npy',  TimesMinima) # save the time-steps when the local minima were found
-    np.save(path+'NumberofIterations_s' + str(name) + str(start) + '.npy',  NumberofIterations) # save the time-steps when the local minima were found
-    'print done PSO'
-    return 
+    return Gbest, NumberofIterations, Minima
 
 #%%
 
-# select parameters for PSO
+# run PSO for each configuration
+GbestH, itH,MH=PSO(simulation, nameHarmonic, w_h, mu_h, counter_Harmonic)
 
-w_o, mu_o=Orbit()
-PSO(simulation, nameOrbit,w_o, mu_o, counter_Orbit)
+GbestO, itO,MO=PSO(simulation, nameOrbit,w_o, mu_o, counter_Orbit)
 
+GbestC, itC,MC=PSO(simulation, nameClassic, w_c, mu_c, counter_Classic)
 
-w_h, mu_h=Harmonic()
-PSO(simulation, nameHarmonic, w_h, mu_h, counter_Harmonic)
-
-
-w_c, mu_c=Classic()
-PSO(simulation, nameClassic, w_c, mu_c, counter_Classic)
-
-    
+ 

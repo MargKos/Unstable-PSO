@@ -7,13 +7,12 @@ Created on Tue Jan 31 11:50:25 2023
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
+from Variables import *
 
-
+# define Rastrigin function
 
 def fct_Rastrigin(x):
     
-    dim=30
     y = 0
     for i in range(dim):
         if -5.12<x[i]<5.12:

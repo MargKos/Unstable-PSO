@@ -1,0 +1,63 @@
+Mo 11. Sep 12:56:29 CEST 2023
+htc-cmp141
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D
+
+Hello! This is task number 97
+Mo 11. Sep 12:56:42 CEST 2023
+Mo 11. Sep 12:56:42 CEST 2023
+htc-cmp141
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D
+
+Hello! This is task simulation 97
+done exploration0.1
+done exploration0.1
+done exploration0.1
+done exploration0.2
+done exploration0.2
+done exploration0.2
+done exploration0.30000000000000004
+done exploration0.30000000000000004
+done exploration0.30000000000000004
+done exploration0.4
+done exploration0.4
+done exploration0.4
+done exploration0.5
+done exploration0.5
+done exploration0.5
+done exploration0.6000000000000001
+done exploration0.6000000000000001
+done exploration0.6000000000000001
+done exploration0.7000000000000001
+done exploration0.7000000000000001
+done exploration0.7000000000000001
+done exploration0.8
+done exploration0.8
+done exploration0.8
+done exploration0.9
+done exploration0.9
+done exploration0.9
+done exploration1.0
+done exploration1.0
+done exploration1.0
+Mo 11. Sep 13:06:26 CEST 2023
+Mo 11. Sep 13:06:26 CEST 2023
+htc-cmp141
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D/Exploration5D.py", line 34, in <module>
+    AverageScoreDamped=fct_average('Damped', Eps[i+1])
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D/Exploration5D.py", line 21, in fct_average
+    Average=Average+np.load(path+'AllScores'+str(name)+str(eps)+str(s)+'.npy')*120 # multiplied by 120, if one wants the toal number instead of percentage
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest4/AllScores8DampedMu0.3215Particle20T20000.999.npy'
+Mo 11. Sep 13:06:30 CEST 2023
+Mo 11. Sep 13:06:30 CEST 2023
+Mo 11. Sep 13:06:30 CEST 2023
+htc-cmp141
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D/Measures5D.py", line 102, in <module>
+    X_Orbit=np.load(path+'X_s'+str(nameOrbit)+str(s)+'.npy')
+NameError: name 'nameOrbit' is not defined
+Mo 11. Sep 13:09:05 CEST 2023

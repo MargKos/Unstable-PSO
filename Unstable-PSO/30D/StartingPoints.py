@@ -13,8 +13,10 @@ n=20
 dim=30
 sim=100
 
-BdXlow=-5.12
+BdXlow=-5.12 # domain range
 BdXUp=5.12
+
+# for uniforms tarting points
 
 StartWerte=np.empty([ dim,n, sim])
 for s in range(sim):
@@ -26,7 +28,7 @@ for s in range(sim):
 
 np.save('Uniform30D.npy', StartWerte)
 
-#%%
+#%% for range excluding starting points
 
 a = -5.12
 b = 5.12

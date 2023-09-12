@@ -93,27 +93,27 @@ def fct_concentration(X, Gl,  eps): # X=particle positions, Gl=global best posit
     
 ConcentrationDamped=np.zeros(T_PSO)  # ConcentrationDamped gives the average concentration of particles around the global best at time t
 ConcentrationOverdamped=np.zeros(T_PSO)   # ConcentrationOverdamped gives the average concentration of particles around the global best at time t
-ConcentrationOrbit=np.zeros(T_PSO)     # ConcentrationOrbit gives the average concentration of particles around the global best at time t
+ConcentrationDivergent=np.zeros(T_PSO)     # ConcentrationDivergent gives the average concentration of particles around the global best at time t
 
 for s in range(sim):    
     # load particle positions of each simulation
     X_Damped=np.load(path+'X_s'+str(nameDamped)+str(s)+'.npy')
     X_Overdamped=np.load(path+'X_s'+str(nameOverdamped)+str(s)+'.npy')
-    X_Orbit=np.load(path+'X_s'+str(nameOrbit)+str(s)+'.npy')
+    X_Divergent=np.load(path+'X_s'+str(nameDivergent)+str(s)+'.npy')
 
     # load global best positions of each simulation
     G_Damped=np.load(path+'G_s'+str(nameDamped)+str(s)+'.npy')
     G_Overdamped=np.load(path+'G_s'+str(nameOverdamped)+str(s)+'.npy')
-    G_Orbit=np.load(path+'G_s'+str(nameOrbit)+str(s)+'.npy')
+    G_Divergent=np.load(path+'G_s'+str(nameDivergent)+str(s)+'.npy')
 
     # calculate the concentration of particles around the global best and average
     ConcentrationDamped=ConcentrationDamped+fct_concentration(X_Damped, G_Damped, 0.52)
     ConcentrationOverdamped=ConcentrationOverdamped+fct_concentration(X_Overdamped, G_Overdamped, 0.52)
-    ConcentrationOrbit=ConcentrationOrbit+fct_concentration(X_Orbit, G_Orbit, 0.52)
+    ConcentrationDivergent=ConcentrationDivergent+fct_concentration(X_Divergent, G_Divergent, 0.52)
        
 #%%
 # save the results
-np.save('./Results/AverageConcentration'+str(nameOrbit)+'.npy', ConcentrationOrbit/sim)
+np.save('./Results/AverageConcentration'+str(nameDivergent)+'.npy', ConcentrationDivergent/sim)
 np.save('./Results/AverageConcentration'+str(nameOverdamped)+'.npy', ConcentrationOverdamped/sim)
 np.save('./Results/AverageConcentration'+str(nameDamped)+'.npy', ConcentrationDamped/sim)
 

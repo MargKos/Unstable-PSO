@@ -62,7 +62,7 @@ def fct_local_minima(Parameters, sim, T_PSO, eps): # Parameters: Damped, Overdam
         name=nameOverdamped
     
     if Parameters=='Divergent':
-        name=Divergent
+        name=nameDivergent
     
     # Load the data of each simulation and store it efficiently
 
@@ -95,7 +95,7 @@ def fct_local_minima(Parameters, sim, T_PSO, eps): # Parameters: Damped, Overdam
     return AllScores
 
 #%%
-print('yes')
+
 SimulationsNumber=[20,50, 100, 200] # number of simulations for commulative number of local minima
 for s in range(4):
 

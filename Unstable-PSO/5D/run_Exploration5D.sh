@@ -10,7 +10,7 @@
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/5D
+cd /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D
 python3 Exploration5D.py 
 
 
