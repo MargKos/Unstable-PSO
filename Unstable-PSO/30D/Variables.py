@@ -1,19 +1,19 @@
 import numpy as np
 
 
-def Orbit():
+def Divergent():
     w=1
     mu=0.002
 
     return w, mu,
 
-def Harmonic():
+def Damped():
     mu=0.3215
     w=0.958058
 
     return w, mu
 
-def Classic():
+def Overdamped():
     w=0.7
     mu=1.4
 
@@ -21,9 +21,9 @@ def Classic():
 
 
 
-w_o, mu_o=Orbit()
-w_c, mu_c=Classic()
-w_h, mu_h=Harmonic()
+w_o, mu_o=Divergent()
+w_c, mu_c=Overdamped()
+w_h, mu_h=Damped()
 
 #%%
 
@@ -35,20 +35,20 @@ sim=100 # number of simulations, has to fit to the number assigned in the -sh fi
 
 # names to store the data
 
-nameOrbit=str('Orbit')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
-nameClassic=str('Classic')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
-nameHarmonic=str('Harmonic')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDivergent=str('Divergent')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
+nameOverdamped=str('Overdamped')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDamped=str('Damped')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
 
 # path to save
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Simulations/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest4/'
 #%%
 
 StartWerte=np.load('Boundary30D.npy')
 
 #%%
 # Waiting times to locate the local minima, has to be determined before 
-counter_Orbit=7
-counter_Classic=7
-counter_Harmonic=7
+counter_divergent=7
+counter_overdamped=7
+counter_damped=7
 
 

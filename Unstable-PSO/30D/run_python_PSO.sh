@@ -11,7 +11,7 @@
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+cd /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/30D
 python3 PSO_information.py $SLURM_ARRAY_TASK_ID
 
 

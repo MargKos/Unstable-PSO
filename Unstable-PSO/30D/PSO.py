@@ -128,10 +128,9 @@ def PSO(start, name, w, mu, counter): # start is the number of the starting poin
 #%%
 
 # run PSO for each configuration
-GbestH, itH,MH=PSO(simulation, nameHarmonic, w_h, mu_h, counter_Harmonic)
+Gbest_Damped, it_Damped,Minima_Damped=PSO(simulation, nameDamped, w_damped, mu_damped, counter_damped)
 
-GbestO, itO,MO=PSO(simulation, nameOrbit,w_o, mu_o, counter_Orbit)
+Gbest_Divergent, it_Divergent,Minima_Divergent=PSO(simulation, nameDivergent,w_divergent, mu_divergent, counter_divergent)
 
-GbestC, itC,MC=PSO(simulation, nameClassic, w_c, mu_c, counter_Classic)
-
+Gbest_Overdamped, it_Overdamped,Minima_Overdamped=PSO(simulation, nameOverdamped, w_overdamped, mu_overdamped, counter_overdamped)
  

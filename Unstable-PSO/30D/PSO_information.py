@@ -113,8 +113,8 @@ def PSO_s(start, name, w, mu): # start is the number of the starting point, name
 
 #%% run PSO for each simulation
 
-Go,Xo=PSO_s(simulation, nameOrbit,w_o, mu_o)
-Gh,Xh=PSO_s(simulation, nameHarmonic, w_h, mu_h)
-Gc,Xc=PSO_s(simulation, nameClassic, w_c, mu_c)
+Gbest_Divergent,X_Divergent=PSO_s(simulation, nameDivergent,w_divergent, mu_divergent)
+Gbest_Damped,X_Damped=PSO_s(simulation, nameDamped, w_damped, mu_damped)
+G_Overdamped,X_Overdamped=PSO_s(simulation, nameOverdamped, w_overdamped, mu_overdamped)
     
      

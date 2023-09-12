@@ -10,122 +10,122 @@ import matplotlib.ticker as ticker
 
 #%% Collect the waiting times for the three different parameters in one list over all simulations and particles
 
-OrbitWaitingTimes=[] # waiting times of the Orbit parameters
-ClassicWaitingTimes=[] # waiting times of the Classic parameters
-HarmonicWaitingTimes=[] # waiting times of the Harmonic parameters
+DivergentWaitingTimes=[] # waiting times of the Divergent parameters
+OverdampedWaitingTimes=[] # waiting times of the Overdamped parameters
+DampedWaitingTimes=[] # waiting times of the Damped parameters
 for s in range(sim):   
-    HarmonicWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameHarmonic) + str(s) + '.npy', allow_pickle=True)
+    DampedWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameDamped) + str(s) + '.npy', allow_pickle=True)
     for i in range(n):
-        for t in range(len(HarmonicWaitingTimes_s[i])):
-            HarmonicWaitingTimes.append(HarmonicWaitingTimes_s[i][t])
+        for t in range(len(DampedWaitingTimes_s[i])):
+            DampedWaitingTimes.append(DampedWaitingTimes_s[i][t])
 
 #%%
 for s in range(sim):  
-    ClassicWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameClassic) + str(s) + '.npy', allow_pickle=True)
+    OverdampedWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameOverdamped) + str(s) + '.npy', allow_pickle=True)
     for i in range(n):
-        for t in range(len(ClassicWaitingTimes_s[i])):
-            ClassicWaitingTimes.append(ClassicWaitingTimes_s[i][t])
+        for t in range(len(OverdampedWaitingTimes_s[i])):
+            OverdampedWaitingTimes.append(OverdampedWaitingTimes_s[i][t])
 #%%
 for s in range(sim): 
-    OrbitWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameOrbit) + str(s) + '.npy', allow_pickle=True)
+    DivergentWaitingTimes_s=np.load(path+'NumberofIterations_s' + str(nameDivergent) + str(s) + '.npy', allow_pickle=True)
     for i in range(n):
-        for t in range(len(OrbitWaitingTimes_s[i])):
-            OrbitWaitingTimes.append(OrbitWaitingTimes_s[i][t])
+        for t in range(len(DivergentWaitingTimes_s[i])):
+            DivergentWaitingTimes.append(DivergentWaitingTimes_s[i][t])
 
 
 #%% To  reduce the size of the data set, take a random sample of 50000 waiting times for each parameter configuration
 
-OrbitWaitingTimesSample=np.random.choice(OrbitWaitingTimes, 50000)
-ClassicWaitingTimesSample=np.random.choice(ClassicWaitingTimes, 50000)
+DivergentWaitingTimesSample=np.random.choice(DivergentWaitingTimes, 50000)
+OverdampedWaitingTimesSample=np.random.choice(OverdampedWaitingTimes, 50000)
 
 #%% 
-HarmonicWaitingTimesSample=[]
+DampedWaitingTimesSample=[]
 
 # alternative code
 
 for i in range(50000):
-    s=np.random.randint(0, len(HarmonicWaitingTimes)-1)
-    HarmonicWaitingTimesSample.append(HarmonicWaitingTimes[s])
+    s=np.random.randint(0, len(DampedWaitingTimes)-1)
+    DampedWaitingTimesSample.append(DampedWaitingTimes[s])
 
-HarmonicWaitingTimesSample=np.array(HarmonicWaitingTimesSample)
+DampedWaitingTimesSample=np.array(DampedWaitingTimesSample)
 
 
 #%%  
 
 # save results
 
-np.save('./Results/OrbitWaitingTimesSample.npy', OrbitWaitingTimesSample)
-np.save('./Results/ClassicWaitingTimesSample.npy', ClassicWaitingTimesSample)
-np.save('./Results/HarmonicWaitingTimesSample.npy', HarmonicWaitingTimesSample)
+np.save('./Results/DivergentWaitingTimesSample.npy', DivergentWaitingTimesSample)
+np.save('./Results/OverdampedWaitingTimesSample.npy', OverdampedWaitingTimesSample)
+np.save('./Results/DampedWaitingTimesSample.npy', DampedWaitingTimesSample)
 
 #%%
 # load results
 
-OrbitWaitingTimesSample=np.load('./Results/OrbitWaitingTimesSample.npy')
-ClassicWaitingTimesSample=np.load('./Results/ClassicWaitingTimesSample.npy')
-HarmonicWaitingTimesSample=np.load('./Results/HarmonicWaitingTimesSample.npy')
+DivergentWaitingTimesSample=np.load('./Results/DivergentWaitingTimesSample.npy')
+OverdampedWaitingTimesSample=np.load('./Results/OverdampedWaitingTimesSample.npy')
+DampedWaitingTimesSample=np.load('./Results/DampedWaitingTimesSample.npy')
 
 
 #%% Waiting times smaller than 1000
 
-OrbitWaitingTimesSample=OrbitWaitingTimesSample[OrbitWaitingTimesSample<1000]
-ClassicWaitingTimesSample=ClassicWaitingTimesSample[ClassicWaitingTimesSample<1000]
-HarmonicWaitingTimesSample=HarmonicWaitingTimesSample[HarmonicWaitingTimesSample<1000]
+DivergentWaitingTimesSample=DivergentWaitingTimesSample[DivergentWaitingTimesSample<1000]
+OverdampedWaitingTimesSample=OverdampedWaitingTimesSample[OverdampedWaitingTimesSample<1000]
+DampedWaitingTimesSample=DampedWaitingTimesSample[DampedWaitingTimesSample<1000]
 
 #%% Waiting times larger than 0
 
 
-ClassicWaitingTimesSample=ClassicWaitingTimesSample[ClassicWaitingTimesSample>0]
-HarmonicWaitingTimesSample=HarmonicWaitingTimesSample[HarmonicWaitingTimesSample>0]
-OrbitWaitingTimesSample=OrbitWaitingTimesSample[OrbitWaitingTimesSample>0]
+OverdampedWaitingTimesSample=OverdampedWaitingTimesSample[OverdampedWaitingTimesSample>0]
+DampedWaitingTimesSample=DampedWaitingTimesSample[DampedWaitingTimesSample>0]
+DivergentWaitingTimesSample=DivergentWaitingTimesSample[DivergentWaitingTimesSample>0]
 
-#%% calculate the 0.95 quantile of ClassicWaitingTimesSample, OrbitWaitingTimesSample and HarmonicWaitingTimesSample
+#%% calculate the 0.95 quantile of OverdampedWaitingTimesSample, DivergentWaitingTimesSample and DampedWaitingTimesSample
 
-quantileC=np.quantile(ClassicWaitingTimesSample, 0.95)
-quantileO=np.quantile(OrbitWaitingTimesSample, 0.95)
-quantileH=np.quantile(HarmonicWaitingTimesSample, 0.95)
+quantileOverdamped=np.quantile(OverdampedWaitingTimesSample, 0.95)
+quantileDivergent=np.quantile(DivergentWaitingTimesSample, 0.95)
+quantileDamped=np.quantile(DampedWaitingTimesSample, 0.95)
 
-print('Classic', quantileC, 'Harmonic',quantileH,'Orbit', quantileO)
+print('Overdamped', quantileOverdamped, 'Damped',quantileDamped,'Divergent', quantileDivergent)
 
-#%% Fit HarmonicWaitingTimes to Cauchy distribution 
+#%% Fit DampedWaitingTimes to Cauchy distribution 
 # Fit a Cauchy distribution to the data:
-paramH = cauchy.fit(HarmonicWaitingTimesSample)
-paramC = cauchy.fit(ClassicWaitingTimesSample)
-paramO = cauchy.fit(OrbitWaitingTimesSample)
+paramDamped = cauchy.fit(DampedWaitingTimesSample)
+paramOverdamped = cauchy.fit(OverdampedWaitingTimesSample)
+paramDivergent = cauchy.fit(DivergentWaitingTimesSample)
 
 #%%
 X=np.linspace(0,1000,10000)
 # Get the pdf from the cauchy distribution
-pdf_fittedH = cauchy.pdf(X, *paramH)
+pdf_fittedDamped = cauchy.pdf(X, *paramDamped)
 
 # Get the pdf from the cauchy distribution
-pdf_fittedC = cauchy.pdf(X, *paramC)
+pdf_fittedOverdamped = cauchy.pdf(X, *paramDivergent)
 
 # Get the pdf from the cauchy distribution
-pdf_fittedO = cauchy.pdf(X, *paramO)
+pdf_fittedDivergent = cauchy.pdf(X, *paramDivergent)
 
 
 #%% Plot  pdf of the waiting times in short and long run for the three different parameters
 legend_fontsize=30
 fig, axs = plt.subplots(1, 2, figsize=(20,7))
 plt.subplots_adjust(top=0.8, bottom=0.22,left=0.1, right=0.95)
-axs[0].plot(X[0:1000], np.log(pdf_fittedC[0:1000]), color='orange')
-axs[0].plot(X[0:1000], np.log(pdf_fittedO[0:1000]), color='blue')
-axs[0].plot(X[0:1000], np.log(pdf_fittedH[0:1000]), color='green')
-axs[0].plot(X[0:1000], np.log(pdf_fittedC[0:1000]), 's',markevery=100, markersize=7, color='orange', label='Classic')
-axs[0].plot(X[0:1000], np.log(pdf_fittedO[0:1000]),'o', markevery=100, markersize=7,color='blue', label='Divergent Oscillator')
-axs[0].plot(X[0:1000], np.log(pdf_fittedH[0:1000]),'^',markevery=100, markersize=7, color='green', label='Damped')
+axs[0].plot(X[0:1000], np.log(pdf_fittedOverdamped[0:1000]), color='orange')
+axs[0].plot(X[0:1000], np.log(pdf_fittedDivergent[0:1000]), color='blue')
+axs[0].plot(X[0:1000], np.log(pdf_fittedDamped[0:1000]), color='green')
+axs[0].plot(X[0:1000], np.log(pdf_fittedOverdamped[0:1000]), 's',markevery=100, markersize=7, color='orange', label='Overdamped')
+axs[0].plot(X[0:1000], np.log(pdf_fittedDivergent[0:1000]),'o', markevery=100, markersize=7,color='blue', label='Divergent Oscillator')
+axs[0].plot(X[0:1000], np.log(pdf_fittedDamped[0:1000]),'^',markevery=100, markersize=7, color='green', label='Damped')
 axs[0].tick_params(axis='x', labelsize=30)
 axs[0].tick_params(axis='y', labelsize=30)
 axs[0].set_ylabel('log(density)',  fontsize=30)
 axs[0].set_xlabel('number of iterations',fontsize=30)
 
-axs[1].plot(X[1000:10000], np.log(pdf_fittedC[1000:10000]), color='orange')
-axs[1].plot(X[1000:10000], np.log(pdf_fittedO[1000:10000]), color='blue' )
-axs[1].plot(X[1000:10000], np.log(pdf_fittedH[1000:10000]), color='green')
-axs[1].plot(X[1000:10000], np.log(pdf_fittedC[1000:10000]),'s',markevery=1000, markersize=7, color='orange', label='Classic')
-axs[1].plot(X[1000:10000], np.log(pdf_fittedO[1000:10000]), 'o', markevery=1000, markersize=7,color='blue', label='Divergent Oscilaltor')
-axs[1].plot(X[1000:10000], np.log(pdf_fittedH[1000:10000]),'^',markevery=1000, markersize=7, color='green', label='Damped')
+axs[1].plot(X[1000:10000], np.log(pdf_fittedOverdamped[1000:10000]), color='orange')
+axs[1].plot(X[1000:10000], np.log(pdf_fittedDivergent[1000:10000]), color='blue' )
+axs[1].plot(X[1000:10000], np.log(pdf_fittedDamped[1000:10000]), color='green')
+axs[1].plot(X[1000:10000], np.log(pdf_fittedOverdamped[1000:10000]),'s',markevery=1000, markersize=7, color='orange', label='Overdamped')
+axs[1].plot(X[1000:10000], np.log(pdf_fittedDivergent[1000:10000]), 'o', markevery=1000, markersize=7,color='blue', label='Divergent Oscilaltor')
+axs[1].plot(X[1000:10000], np.log(pdf_fittedDamped[1000:10000]),'^',markevery=1000, markersize=7, color='green', label='Damped')
 axs[1].tick_params(axis='x', labelsize=30)
 axs[1].tick_params(axis='y', labelsize=30)
 axs[1].set_xlabel('number of iterations', fontsize=30)

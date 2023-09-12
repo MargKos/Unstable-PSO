@@ -9,9 +9,12 @@
 #SBATCH --time=02-00:00:00                       # Time limit (necessary for Z1)
 #SBATCH --output=job_%a-%a.log                   # Standard output and error log
 
+
+common_folder="/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D"
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+
+cd "$common_folder"
 python3 PSO.py $SLURM_ARRAY_TASK_ID
 
 
@@ -30,7 +33,7 @@ date
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+cd "$common_folder"
 python3 PSO_information.py $SLURM_ARRAY_TASK_ID
 
 
@@ -48,7 +51,8 @@ date
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+
+cd "$common_folder"
 python3 Statistics.py 
 
 date
@@ -66,7 +70,8 @@ date
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+
+cd "$common_folder"
 python3 ExplorationMultiProcessing.py $SLURM_ARRAY_TASK_ID
 
 
@@ -84,7 +89,8 @@ date
 
 date;hostname;pwd
 
-cd /home/htc/bzfkostr/Git/FinalCode/Unstable-PSO/30D
+
+cd "$common_folder"
 python3 Exploration.py
 
 date
