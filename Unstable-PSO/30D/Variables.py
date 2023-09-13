@@ -21,9 +21,9 @@ def Overdamped():
 
 
 
-w_o, mu_o=Divergent()
-w_c, mu_c=Overdamped()
-w_h, mu_h=Damped()
+w_divergent, mu_divergent=Divergent()
+w_overdamped, mu_overdamped=Overdamped()
+w_damped, mu_damped=Damped()
 
 #%%
 
@@ -35,9 +35,9 @@ sim=100 # number of simulations, has to fit to the number assigned in the -sh fi
 
 # names to store the data
 
-nameDivergent=str('Divergent')+'Mu'+str(mu_o)+'Particle'+str(n)+'T'+str(T_PSO)
-nameOverdamped=str('Overdamped')+'Mu'+str(mu_c)+'Particle'+str(n)+'T'+str(T_PSO)
-nameDamped=str('Damped')+'Mu'+str(mu_h)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDivergent=str('Divergent')+'Mu'+str(mu_divergent)+'Particle'+str(n)+'T'+str(T_PSO)
+nameOverdamped=str('Overdamped')+'Mu'+str(mu_overdamped)+'Particle'+str(n)+'T'+str(T_PSO)
+nameDamped=str('Damped')+'Mu'+str(mu_damped)+'Particle'+str(n)+'T'+str(T_PSO)
 
 # path to save
 path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest4/'

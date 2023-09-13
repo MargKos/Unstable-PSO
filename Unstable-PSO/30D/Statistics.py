@@ -72,7 +72,7 @@ for t in range(int(T_PSO_short/delta)):
         
     LossDivergent[t]=np.mean(List) # compute the mean of the function values of the global best positions at time t
 
-np.save('./Results/ShortMeanRastrigin'+str(nameDivergent)+'', LossO)
+np.save('./Results/ShortMeanRastrigin'+str(nameDivergent)+'', LossDivergent)
 print(len(LossO))
 
 #%% Mean Damped
@@ -88,7 +88,7 @@ for t in range(int(T_PSO_short/delta)):
     LossDamped[t]=np.mean(List)
    
 
-np.save('./Results/ShortMeanRastrigin'+str(nameDamped)+'', LossH)
+np.save('./Results/ShortMeanRastrigin'+str(nameDamped)+'', LossDamped)
 
 #%% Mean Overdamped
         
@@ -102,7 +102,7 @@ for t in range(int(T_PSO_short/delta)):
         
     LossOverdamped[t]=np.mean(List)
     
-np.save('./Results/ShortMeanRastrigin'+str(nameOverdamped)+'', LossC)
+np.save('./Results/ShortMeanRastrigin'+str(nameOverdamped)+'', LossOverdamped)
 
 
 

@@ -16,7 +16,7 @@ from multiprocessing import Pool
 import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
 from matplotlib.patches import Polygon
-
+from matplotlib.colors import LinearSegmentedColormap
 
 # for Fig1 and Fig2: calculates the spectral radius for different parameters and the evolution of the first and second moments
 
@@ -29,16 +29,16 @@ def fct_abs(c): # complex absolute value
     return np.sqrt(r**2+i**2)
 #%% calculate different operators M and their eigenvalues
 
-Mu=np.linspace(0.01,3.99,300)
-W=np.linspace(-1,1.1,300)
-WMu=np.zeros((300,300))
-WMuReal=np.zeros((300,300))
-WMuImag=np.zeros((300,300))
-WMuSign=np.zeros((300,300))
+Mu=np.linspace(0.01,3.99,1000)
+W=np.linspace(-1,1.1,1000)
+WMu=np.zeros((1000,1000))
+WMuReal=np.zeros((1000,1000))
+WMuImag=np.zeros((1000,1000))
+WMuSign=np.zeros((1000,1000))
 p=0
-for k in range(300):
-    w=W[299-k]
-    for j in range(300):
+for k in range(1000):
+    w=W[999-k]
+    for j in range(1000):
 
         mu=Mu[j]
         M=np.array([[1+w-mu, -w,0,0,0],
@@ -60,13 +60,62 @@ for k in range(300):
         WMuReal[k,j]=np.abs(ev1[0].real)
         WMuImag[k,j]=np.abs(ev1[0].imag)
 
-       
+#%%
+def eigenvalue_test(w,mu):
+    
+    
+    M=np.array([[1+w-mu, -w,0,0,0],
+            [1,0,0,0,0],
+            [p*4*(mu/2*(1+w)-(mu**2)/3-(mu/2)**2), -4*mu/2*w*p, (1+w)**2-4*mu/2*(1+w)+2*(mu**2)/3+2*(mu/2)**2,  2*w*(2*(mu/2)-(1+w)),w**2],
+            [mu*p,0,(1+w)-mu,-w,0],
+            [0,0,1,0,0],
+            ])
+    ev, ew=np.linalg.eig(M)
+    
+    NormEv=np.zeros(len(ev))
+    for i in range(len(ev)):
+        NormEv[i]=fct_abs(ev[i])
+    
+    radius=np.max(NormEv)
+
+    M1=np.array([[1+w-mu,-w],[1,0]])
+    ev1, ew1=np.linalg.eig(M1)
+    real=np.abs(ev1[0].real)
+    imag=np.abs(ev1[0].imag)
+    
+    
+    return radius, real, imag
+    
+#%% Get all points where the spectral radius is smaller than 0.95
+SpectralSmallerThan7=[]
+for k in range(1000):
+    for j in range(1000):
+        if WMu[k,j]<0.95 and WMuImag[k,j]>0:
+            SpectralSmallerThan7.append([W[999-k],Mu[j]])
+            
+            
+
+#%% Get all points where the spectral radius is bigger than 0.95
+SpectralBiggerThan7=[]
+for k in range(1000):
+    for j in range(1000):
+        if 1>WMu[k,j]>0.95 and WMuImag[k,j]>0:
+            SpectralBiggerThan7.append([W[999-k],Mu[j]])
 
 
+radius, real,imag=eigenvalue_test(SpectralBiggerThan7[-1][0],SpectralBiggerThan7[-1][1])
+
+#%% Get all points where imaginary part of the eigenvalues is almost one but still second order stable
+ImaginaryOne=[]
+for k in range(1000):
+    for j in range(1000):
+        if 1>WMuImag[k,j]>0.8 and WMu[k,j]<1:
+            ImaginaryOne.append([W[999-k],Mu[j]])
+        
 #%% Harmonic oscillatory region: get all paris of w, mu that satisfy w**2+mu**2-2*w*mu-2*w+2*mu+1<0
 Harmonic=[]
-for k in range(300):
-    for j in range(300):
+for k in range(1000):
+    for j in range(1000):
         if W[k]**2+Mu[j]**2-2*W[k]*Mu[j]-2*W[k]-2*Mu[j]+1<0:
             Harmonic.append([W[k],Mu[j]])
 
@@ -74,13 +123,19 @@ for k in range(300):
 #%% get all second order stable pairs 
 
 SecondOrder=[]
-for k in range(300):
-    for j in range(300):
+for k in range(1000):
+    for j in range(1000):
         if Mu[j]<(12*(1-W[k]**2))/(7-5*W[k]) and -1<W[k]<1:  
             SecondOrder.append([W[k],Mu[j]])
-
+            
+#%%
+FirstOrder=[]
+for k in range(1000):
+    for j in range(1000):
+        if 2*W[k]-Mu[j]+2>0 and -1<W[k]<1:  
+            FirstOrder.append([W[k],Mu[j]])
 #%% get all first order stable pairs 
-from matplotlib.colors import LinearSegmentedColormap
+
 # Define custom colors for your colormap
 colors = [(0.0, 'red'),        # Color for values < 0
           (0.1, 'darkorange'),     # Color transition from 0 to 1
@@ -96,41 +151,38 @@ Cmap = LinearSegmentedColormap.from_list('custom_RdYlGn', colors)
 Vmax=2.5
 Vmin=0
 
-FirstOrder=[]
-for k in range(300):
-    for j in range(300):
-        if 2*W[k]-Mu[j]+2>0 and -1<W[k]<1:  
-            FirstOrder.append([W[k],Mu[j]])
 
 fig, axs = plt.subplots(3, 2, figsize=(12, 14), sharex='col', gridspec_kw={'hspace': -0.3})
 
-axs[1,0].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
-axs[1,0].tick_params(labelsize=26)
-axs[1,0].set_title('Spectral Radius', fontsize=30)
+axs[0,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+axs[0,1].tick_params(labelsize=26)
+axs[0,1].set_title('Spectral Radius', fontsize=30)
 
 # plot one stable point as a dot in all plots
-axs[1,0].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[1,0].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[1,0].plot(0.14,1, 'o', markersize=10, color='black')
-axs[1,0].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
+axs[0,1].plot(1.4,0.7, 's', markersize=6, color='black', label='Overdamped')
+axs[0,1].plot(0.3215,0.9, '^', markersize=6, color='black', label='Damped')
+axs[0,1].plot(0.14,1, 'o', markersize=6, color='black')
+axs[0,1].plot(0.03,1, 'o', markersize=6, color='black', label='Divergent')
+
+# Plot other points
+axs[1,0].plot(1.4, 0.7, 's', markersize=6, color='black')
+axs[1,0].plot(0.3215, 0.9, '^', markersize=6, color='black')
+axs[1,0].plot(0.14, 1, 'o', markersize=6, color='black')
+axs[1,0].plot(0.03, 1, 'o', markersize=6, color='black')
 
 # plot one stable point as a dot in all plots
-axs[1,1].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[1,1].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[1,1].plot(0.14,1, 'o', markersize=10, color='black')
-axs[1,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
+axs[1,1].plot(1.4,0.7, 's', markersize=6, color='black', label='Overdamped')
+axs[1,1].plot(0.3215,0.9, '^', markersize=6, color='black', label='Damped')
+axs[1,1].plot(0.14,1, 'o', markersize=6, color='black')
+axs[1,1].plot(0.03,1, 'o', markersize=6, color='black', label='Divergent')
 
 # plot all points in the next row
-axs[2,0].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[2,0].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[2,0].plot(0.14,1, 'o', markersize=10, color='black', label='Divergent')
-axs[2,0].plot(0.03,1, 'o', markersize=10, color='black')
+axs[2,0].plot(1.4,0.7, 's', markersize=6, color='black', label='Overdamped')
+axs[2,0].plot(0.3215,0.9, '^', markersize=6, color='black', label='Damped')
+axs[2,0].plot(0.14,1, 'o', markersize=6, color='black', label='Divergent')
+axs[2,0].plot(0.03,1, 'o', markersize=6, color='black')
 
-# plot all points in the next row
-axs[2,1].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[2,1].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[2,1].plot(0.14,1, 'o', markersize=10, color='black')
-axs[2,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
+
 
 
 # first order stable region
@@ -138,13 +190,12 @@ axs[2,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
 FirstOrder=np.array(FirstOrder)
 hullF=ConvexHull(FirstOrder)
 legend_fontsize=26
-axs[1,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+axs[1,0].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 for simplex in hullF.simplices:
-    axs[1,1].plot(FirstOrder[simplex, 1], FirstOrder[simplex, 0],linewidth=5, color='black' )
-axs[1,1].tick_params(labelsize=26)
-axs[1,1].set_title('1-order Stable', fontsize=30)
+    axs[1,0].plot(FirstOrder[simplex, 1], FirstOrder[simplex, 0],linewidth=2, color='black' )
+axs[1,0].tick_params(labelsize=26)
+axs[1,0].set_title('1-order Stable', fontsize=30)
 
-axs[1,1].legend(bbox_to_anchor=(-1.41, 2.8, 1, 0.6), loc="upper left",ncol=3,  prop={'size': legend_fontsize})
 
 # second order stable region
 
@@ -156,22 +207,18 @@ axs[2,0].tick_params(labelsize=26)
 axs[2,0].set_title('2-order Stable', fontsize=30)
 
 for simplex in hullS.simplices:
-    axs[2,0].plot(SecondOrder[simplex, 1], SecondOrder[simplex, 0],linewidth=5, color='black')
+    axs[2,0].plot(SecondOrder[simplex, 1], SecondOrder[simplex, 0],linewidth=2, color='black')
 
-# shadow the region of the second order stable region
-
-
-axs[2,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
-axs[2,1].tick_params(labelsize=26)
-axs[2,1].tick_params(labelsize=26)
-axs[2,1].set_title('Harmonic Oscillatory', fontsize=30)
-
+axs[1,1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+axs[1,1].tick_params(labelsize=26)
+axs[1,1].tick_params(labelsize=26)
+axs[1,1].set_title('Harmonic Oscillatory', fontsize=30)
 
 
 Harmonic=np.array(Harmonic)
 hullH=ConvexHull(Harmonic)
 for simplex in hullH.simplices:
-    axs[2,1].plot(Harmonic[simplex, 1], Harmonic[simplex, 0],linewidth=5, color='black')
+    axs[1,1].plot(Harmonic[simplex, 1], Harmonic[simplex, 0],linewidth=2, color='black')
 
 
 # write a) b) c) under each subplot
@@ -192,7 +239,7 @@ x_hullF_closed = np.append(x_hullF, x_hullF[0])
 y_hullF_closed = np.append(y_hullF, y_hullF[0])
 
 polygon = Polygon(np.column_stack((x_hullF_closed, y_hullF_closed)), closed=True, edgecolor=None, facecolor='grey', alpha=0.5)
-axs[1, 1].add_patch(polygon)
+axs[1, 0].add_patch(polygon)
 
 # shade the area inside second order stable region
 x_hullS = SecondOrder[hullS.vertices, 1]
@@ -215,34 +262,36 @@ x_hullH_closed = np.append(x_hullH, x_hullH[0])
 y_hullH_closed = np.append(y_hullH, y_hullH[0])
 
 polygon = Polygon(np.column_stack((x_hullH_closed, y_hullH_closed)), closed=True, edgecolor=None, facecolor='grey', alpha=0.5)
-axs[2, 1].add_patch(polygon)
+axs[1, 1].add_patch(polygon)
 
-# plot the real WMuReal and WMuImag int the first row
+# plot the  WMuImag int the first row
 
-axs[0,0].imshow(WMuReal,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+
+axs[0,0].imshow(WMuImag,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
 axs[0,0].tick_params(labelsize=26)
-axs[0,0].set_title('Real Part', fontsize=30)
-
-# shade the area where the sign of the real part of the eigenvalue is negative in the same plot
-
-# get all points where real part is positive
+axs[0,0].set_title('Imaginary Part', fontsize=30)
 
 
 
-axs[0,1].imshow(WMuImag,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
-axs[0,1].tick_params(labelsize=26)
-axs[0,1].set_title('Imaginary Part', fontsize=30)
+# Plot Damped Region
 
-axs[0,0].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[0,0].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[0,0].plot(0.14,1, 'o', markersize=10, color='black')
-axs[0,0].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
+axs[2,1].set_title('Damped', fontsize=30)
+axs[2,1].imshow(WMu, interpolation='nearest', cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+axs[2,1].tick_params(labelsize=30)
 
 
-axs[0,1].plot(1.4,0.7, 's', markersize=10, color='black', label='Overdamped')
-axs[0,1].plot(0.3215,0.9, '^', markersize=10, color='black', label='Damped')
-axs[0,1].plot(0.14,1, 'o', markersize=10, color='black')
-axs[0,1].plot(0.03,1, 'o', markersize=10, color='black', label='Divergent')
+
+# plot all points from SpectralBiggerThan7
+
+for i in range(len(SpectralBiggerThan7)):
+    axs[2,1].plot(SpectralBiggerThan7[i][1], SpectralBiggerThan7[i][0], 's', markersize=1, alpha=0.2, color='grey')
+
+
+# plot all points in the damped region
+axs[2,1].plot(1.4,0.68, 's', markersize=6, color='black', label='Overdamped')
+axs[2,1].plot(0.3215,0.9+0.05, '^', markersize=6, color='black', label='Damped')
+axs[2,1].plot(0.14,1, 'o', markersize=6, color='black')
+axs[2,1].plot(0.03,1, 'o', markersize=6, color='black', label='Divergent')
 
 # make a box only under the last row  in the centre with latex label \mu
 fig.text(0.04, 0.5, r'$w$', fontsize=20, va='center', rotation='vertical', bbox=dict(boxstyle='round', facecolor='white', alpha=0.5))
@@ -252,10 +301,11 @@ cbar_ax = fig.add_axes([0.89, 0.14, 0.03, 0.7])  # [left, bottom, width, height]
 cbar = plt.colorbar(im, cax=cbar_ax)
 cbar.ax.tick_params(labelsize=26)
 
+axs[1,1].legend(bbox_to_anchor=(-1.41, 2.8, 1, 0.6), loc="upper left",ncol=3,  prop={'size': legend_fontsize})
+
 # Save the figure
 plt.subplots_adjust(top=0.95, bottom=0.03, left=0.1, right=0.88)
 plt.savefig('./Plots/Fig1.pdf')
-
 
 
 #%%
@@ -302,7 +352,7 @@ def fct_std(T,mu,w,l,g, omega): # T: number of timesteps, mu: social learning ra
     
 
     zstar=np.linalg.inv(np.identity(5)-M).dot(b)
-    print(zstar, 'fixed point')
+    
     return Z,STD
 
 
@@ -380,3 +430,89 @@ axs[0].text(0.54, -0.25, '(a)', transform=axs[0].transAxes, fontsize=30, va='top
 axs[1].text(0.54, -0.25, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right')
 axs[2].text(0.54, -0.25, '(c)', transform=axs[2].transAxes, fontsize=30, va='top', ha='right')
 plt.savefig('./Plots/Fig2.eps')
+
+#%% Calculate the moments for 5 random parameters from SpectralSmallerThan7
+T=300
+# spectralsmallerthan7
+Z_spectralsmallerthan7_random=np.zeros((5,T,len(SpectralSmallerThan7)))
+STD_spectralsmallerthan7_random=np.zeros((5,T,len(SpectralSmallerThan7)))
+for i in range(len(SpectralSmallerThan7)):
+    w=SpectralSmallerThan7[i][0]
+    mu=SpectralSmallerThan7[i][1]
+    phi=mu
+    p=(mu*l+phi*g)/(mu+phi)
+    Z_spectralsmallerthan7_random[:,:,i], STD_spectralsmallerthan7_random[:,:,i]=fct_std(T,mu, w, l,g, omega)
+
+
+#%% Calculate the moments for 5 random parameters from SpectralBiggerThan7
+
+# spectralbiggerthan7
+
+Z_spectralbiggerthan7_random=np.zeros((5,T,len(SpectralBiggerThan7)))
+STD_spectralbiggerthan7_random=np.zeros((5,T,len(SpectralBiggerThan7)))
+for i in range(len(SpectralBiggerThan7)):
+    w=SpectralBiggerThan7[i][0]
+    mu=SpectralBiggerThan7[i][1]
+    phi=mu
+    p=(mu*l+phi*g)/(mu+phi)
+    Z_spectralbiggerthan7_random[:,:,i], STD_spectralbiggerthan7_random[:,:,i]=fct_std(T,mu, w, l,g, omega)
+
+#%% Calculate the moments for 5 random parameters from ImaginaryOne
+
+# imaginaryone
+
+Z_imaginaryone_random=np.zeros((5,T,len(ImaginaryOne)))
+STD_imaginaryone_random=np.zeros((5,T,len(ImaginaryOne)))
+for i in range(len(ImaginaryOne)):
+    w=ImaginaryOne[i][0]
+    mu=ImaginaryOne[i][1]
+    phi=mu
+    p=(mu*l+phi*g)/(mu+phi)
+    Z_imaginaryone_random[:,:,i], STD_imaginaryone_random[:,:,i]=fct_std(T,mu, w, l,g, omega)
+
+#%% Plot the mean and std for 5 random parameters from SpectralSmallerThan7, SpectralBiggerThan7 and ImaginaryOne
+number_traj=10
+fig=plt.figure(figsize=(20,7))
+plt.subplots_adjust(top=0.78, bottom=0.22,left=0.05, right=0.95)
+legend_fontsize=30
+axs=fig.subplots(1,3)
+axs[0].set_title('Spectral Radius < 0.95', fontsize=30)
+for i in range(number_traj):
+    r=np.random.randint(0, len(Z_spectralsmallerthan7_random))
+    axs[0].plot(np.linspace(0,T-1, T), Z_spectralsmallerthan7_random[0,:,r], label='mean', color='blue')
+    axs[0].plot(np.linspace(0,T-1, T), STD_spectralsmallerthan7_random[2,:,r], label='sts', color='green')
+    axs[0].plot(np.linspace(0,T-1, T), np.ones(T)*p,color='red', label='g')
+    axs[0].set_xlabel('time', fontsize=30)
+
+axs[0].tick_params(axis='both', which='major', labelsize=30)
+axs[0].set_ylim(-0.5,2)
+#axs[0].legend(bbox_to_anchor=(-2, 1.02, 1, 0.35), loc="upper left",
+#                ncol=4,  prop={'size': legend_fontsize})
+
+axs[1].set_title('Spectral Radius > 0.95', fontsize=30)
+for i in range(number_traj):
+    r=np.random.randint(0, len(Z_spectralbiggerthan7_random))
+    axs[1].plot(np.linspace(0,T-1, T), Z_spectralbiggerthan7_random[0,:,r], label='mean', color='blue')
+    axs[1].plot(np.linspace(0,T-1, T), STD_spectralbiggerthan7_random[2,:,r], label='second moment', color='green')
+    axs[1].plot(np.linspace(0,T-1, T), np.ones(T)*p,color='red', label='g')
+    axs[1].set_xlabel('time', fontsize=30)
+
+axs[1].tick_params(axis='both', which='major', labelsize=30)
+#axs[1].set_ylim(-0.5,2)
+#axs[1].legend(bbox_to_anchor=(-2, 1.02, 1, 0.35), loc="upper left",
+#               ncol=4,  prop={'size': legend_fontsize})
+
+axs[2].set_title('Imaginary Part of Eigenvalues ~ 1', fontsize=30)
+for i in range(number_traj):
+    r=np.random.randint(0, len(Z_imaginaryone_random))
+    axs[2].plot(np.linspace(0,T-1, T), Z_imaginaryone_random[0,:,r], label='mean', color='blue')
+    axs[2].plot(np.linspace(0,T-1, T),STD_imaginaryone_random[2,:,r], label='second moment', color='green')
+    axs[2].plot(np.linspace(0,T-1, T), np.ones(T)*p,color='red', label='g')
+    axs[2].set_xlabel('time', fontsize=30)
+
+axs[2].tick_params(axis='both', which='major', labelsize=30)
+
+
+plt.savefig('Trajectories.png')
+
+

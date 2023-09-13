@@ -383,5 +383,5 @@ for t in range(T_PSO):
 np.save(path+'Distance'+str(nameOverdamped)+str(simulation)+'', DistanceOverdamped)
 np.save(path+'NumberOfFoundLocalMinima'+str(nameOverdamped)+str(simulation)+'', NumberOfFoundLocalMinimaOverdamped)
 np.save(path+'TimeLocalMinima'+str(nameOverdamped)+str(simulation)+'', TimeLocalMinimaOverdamped)
-np.save(path+'LocalMinima'+str(nameOverdamped´)+str(simulation)+'', LocalMinimaOverdamped)
+np.save(path+'LocalMinima'+str(nameOverdamped)+str(simulation)+'', LocalMinimaOverdamped)
 
