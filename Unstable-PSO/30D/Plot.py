@@ -9,7 +9,6 @@ Created on Tue May 30 09:54:52 2023
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
-import seaborn as sns
 from Variables import *
 
 ''' Generate Figures'''
@@ -24,9 +23,9 @@ legend_fontsize=30
 #%% load exploitation
 
 
-ConcentrationDivergent=np.load('./Results/2AverageConcentrationRastrigin'+str(nameDivergent)+'.npy')
-ConcentrationOverdamped=np.load('./Results/2AverageConcentrationRastrigin'+str(nameOverdamped)+'.npy')
-ConcentrationDamped=np.load('./Results/2AverageConcentrationRastrigin'+str(nameDamped)+'.npy')
+ConcentrationDivergent=np.load('./Results/AverageConcentrationRastrigin'+str(nameDivergent)+'.npy')
+ConcentrationOverdamped=np.load('./Results/AverageConcentrationRastrigin'+str(nameOverdamped)+'.npy')
+ConcentrationDamped=np.load('./Results/AverageConcentrationRastrigin'+str(nameDamped)+'.npy')
 
 
 #%% Plot mean and concentration in one Figure

@@ -73,7 +73,7 @@ for t in range(int(T_PSO_short/delta)):
     LossDivergent[t]=np.mean(List) # compute the mean of the function values of the global best positions at time t
 
 np.save('./Results/ShortMeanRastrigin'+str(nameDivergent)+'', LossDivergent)
-print(len(LossO))
+
 
 #%% Mean Damped
         

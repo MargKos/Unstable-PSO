@@ -123,6 +123,7 @@ np.save(path+'Distance'+str(nameDivergent)+str(simulation)+'', DistanceDivergent
 np.save(path+'LocalMinima'+str(nameDivergent)+str(simulation)+'', LocalMinimaDivergent)
 np.save(path+'TimeLocalMinima'+str(nameDivergent)+str(simulation)+'', TimeLocalMinimaDivergent)
 
+print('done exploration divergent parameters')
 #%% same for damped parameters, for details see the code above
 
 AverageNumberOfFoundLocalMinimaDamped=np.zeros(T_PSO)
@@ -130,12 +131,12 @@ AverageNumberOfFoundLocalMinimaDamped=np.zeros(T_PSO)
 TimeLocalMinimaDamped=[]
 LocalMinimaDamped=[]
 DistanceDamped=[]
-NumberOfFoundLocalMinimaDamed=np.zeros(T_PSO)
+NumberOfFoundLocalMinimaDamped=np.zeros(T_PSO)
 
 TimeMinimaDamping_s=np.load(path+'TimesMinima_s' + str(nameDamped) + str(simulation) + '.npy')  
-MinimaDamed=np.load(path+'Minima_s' + str(nameDamped) + str(simulation) + '.npy')
+MinimaDamped=np.load(path+'Minima_s' + str(nameDamped) + str(simulation) + '.npy')
 
-# create groups of elements from MinimaDamed such that all elements in one group are closer than 0.1
+# create groups of elements from MinimaDamped such that all elements in one group are closer than 0.1
 
 GroupedMinimaDamped=[]
 GroupedTimeMinimaDamped=[]
@@ -145,14 +146,14 @@ for i in range(len(MinimaDamped)):
         GroupedMinimaDamped.append([])
         GroupedTimeMinimaDamped.append([])
         
-        GroupedMinimaDamed[0].append(MinimaDamped[i])
-        GroupedTimeMinimaDamed[0].append(TimeMinimaDamping_s[i])
+        GroupedMinimaDamped[0].append(MinimaDamped[i])
+        GroupedTimeMinimaDamped[0].append(TimeMinimaDamping_s[i])
     else:
         # find the right group for MinimaDamped[i]
         for j in range(len(GroupedMinimaDamped)):
             for k in range(len(GroupedMinimaDamped[j])):
-                if np.linalg.norm(MinimaDamed[i]-GroupedMinimaDamped[j][k])<0.1:
-                    GroupedMinimaDamped[j].append(MinimaDamed[i])
+                if np.linalg.norm(MinimaDamped[i]-GroupedMinimaDamped[j][k])<0.1:
+                    GroupedMinimaDamped[j].append(MinimaDamped[i])
                     GroupedTimeMinimaDamped[j].append(TimeMinimaDamping_s[i])
                     # break the j and k loop
                     break
@@ -163,7 +164,7 @@ for i in range(len(MinimaDamped)):
         if j==len(GroupedMinimaDamped)-1:
             GroupedMinimaDamped.append([])
             GroupedTimeMinimaDamped.append([])
-            GroupedMinimaDamped[j+1].append(MinimamedDamped[i])
+            GroupedMinimaDamped[j+1].append(MinimaDamped[i])
             GroupedTimeMinimaDamped[j+1].append(TimeMinimaDamping_s[i])
     
 # create a new list of Minima and TimeMinima where all alements are unique, by calculalatign the mean elemnt of each group and the minimal time
@@ -172,7 +173,7 @@ MinimaDamped=[]
 TimeMinimaDamping_s=[]
 for i in range(len(GroupedMinimaDamped)):
 
-    MinimaD.append(np.mean(GroupedMinimaDamped[i], axis=0))
+    MinimaDamped.append(np.mean(GroupedMinimaDamped[i], axis=0))
     TimeMinimaDamping_s.append(np.min(GroupedTimeMinimaDamped[i]))
 
 
@@ -187,8 +188,8 @@ for i in range(len(MinimaDamped)):
         if hesse(sol)=='min':
             
             LocalMinimaDamped.append(sol)
-            DistanceDamed.append(np.linalg.norm(MinimaDamped[i]-sol))
-            TimeLocalMinimaDamed.append(TimeMinimaDamping_s[i])
+            DistanceDamped.append(np.linalg.norm(MinimaDamped[i]-sol))
+            TimeLocalMinimaDamped.append(TimeMinimaDamping_s[i])
 
 # group all elements from LocalMinimumD in group such that all ellemnts in one group are closer than 0.1 
 
@@ -206,7 +207,7 @@ for i in range(len(LocalMinimaDamped)):
         GroupedTimeLocalMinimaDamped[0].append(TimeLocalMinimaDamped[i])
         GroupedDistanceDamped[0].append(DistanceDamped[i])
     else:
-        # find the right group for MinimaDamed[i]
+        # find the right group for MinimaDamped[i]
         for j in range(len(GroupedLocalMinimaDamped)):
             for k in range(len(GroupedLocalMinimaDamped[j])):
                 if np.linalg.norm(LocalMinimaDamped[i]-GroupedLocalMinimaDamped[j][k])<0.1:
@@ -229,10 +230,10 @@ for i in range(len(LocalMinimaDamped)):
             GroupedDistanceDamped[j+1].append(DistanceDamped[i])
     
 
-# create a new list of LocalMinimaDamed and TimeLocalMinimaDamed where all alements are unique, by calculalatign the mean elemnt of each group and the minimal time
+# create a new list of LocalMinimaDamped and TimeLocalMinimaDamped where all alements are unique, by calculalatign the mean elemnt of each group and the minimal time
 
-LocalMinimaDamed=[]
-TimeLocalMinimaDamed=[]
+LocalMinimaDamped=[]
+TimeLocalMinimaDamped=[]
 DistanceD=[]
 for i in range(len(GroupedLocalMinimaDamped)):
     LocalMinimaDamped.append(np.mean(GroupedLocalMinimaDamped[i], axis=0))
@@ -252,6 +253,8 @@ np.save(path+'TimeLocalMinima'+str(nameDamped)+str(simulation)+'', TimeLocalMini
 np.save(path+'Distance'+str(nameDamped)+str(simulation)+'', DistanceDamped)
 np.save(path+'LocalMinima'+str(nameDamped)+str(simulation)+'', LocalMinimaDamped)
 np.save(path+'NumberOfFoundLocalMinima'+str(nameDamped)+str(simulation)+'', NumberOfFoundLocalMinimaDamped)
+
+print('done exploration damped parameters')
 
 #%% Calculate LocalMinima, their times, distance for Overdamped parameters
 
@@ -385,3 +388,4 @@ np.save(path+'NumberOfFoundLocalMinima'+str(nameOverdamped)+str(simulation)+'', 
 np.save(path+'TimeLocalMinima'+str(nameOverdamped)+str(simulation)+'', TimeLocalMinimaOverdamped)
 np.save(path+'LocalMinima'+str(nameOverdamped)+str(simulation)+'', LocalMinimaOverdamped)
 
+print('done exploration overdamped parameters')
