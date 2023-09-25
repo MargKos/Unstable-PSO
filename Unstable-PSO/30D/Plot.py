@@ -8,7 +8,6 @@ Created on Tue May 30 09:54:52 2023
 
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.manifold import TSNE
 from Variables import *
 
 ''' Generate Figures'''

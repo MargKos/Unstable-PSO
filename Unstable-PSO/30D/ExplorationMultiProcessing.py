@@ -104,11 +104,61 @@ for i in range(len(GroupedMinimaDivergent)):
 for i in range(len(MinimaDivergent)): # go through all unique steady local best positions
     res = minimize(fct_Rastrigin, MinimaDivergent[i], method='CG',options={'disp': False, 'maxiter':1000000})
     sol=res.x
-    if np.max(np.abs(gradient(sol)))<0.01: # check if gradient is small minima  
+    if np.max(np.abs(gradient(sol)))<0.01: # check if gradient is small   
         if hesse(sol)=='min': # check if min, max or saddlepoint  
             LocalMinimaDivergent.append(sol) # append local minima to list of localminima
             DistanceDivergent.append(np.linalg.norm(MinimaDivergent[i]-sol)) # save distance from steady local best position to local minima
+            TimeLocalMinimaDivergent.append(TimeMinimaDivergent_s[i])
+            
 
+GroupedLocalMinimaDivergent=[]
+GroupedTimeLocalMinimaDivergent=[]
+GroupedDistanceDivergent=[]
+
+for i in range(len(LocalMinimaDivergent)):
+    if i==0:
+        GroupedLocalMinimaDivergent.append([])
+        GroupedTimeLocalMinimaDivergent.append([])
+        GroupedDistanceDivergent.append([])
+        
+        GroupedLocalMinimaDivergent[0].append(LocalMinimaDivergent[i])
+        GroupedTimeLocalMinimaDivergent[0].append(TimeLocalMinimaDivergent[i])
+        GroupedDistanceDivergent[0].append(DistanceDivergent[i])
+    else:
+        # find the right group for MinimaDivergent[i]
+        for j in range(len(GroupedLocalMinimaDivergent)):
+            for k in range(len(GroupedLocalMinimaDivergent[j])):
+                if np.linalg.norm(LocalMinimaDivergent[i]-GroupedLocalMinimaDivergent[j][k])<0.1:
+                    GroupedLocalMinimaDivergent[j].append(LocalMinimaDivergent[i])
+                    GroupedTimeLocalMinimaDivergent[j].append(TimeLocalMinimaDivergent[i])
+                    GroupedDistanceDivergent[j].append(DistanceDivergent[i])
+                    # break the j and k loop
+                    break
+            else:
+                continue
+            break
+        # if no group found for MinimaDivergent[i] create a new group
+        if j==len(GroupedLocalMinimaDivergent)-1:
+            GroupedLocalMinimaDivergent.append([])
+            GroupedTimeLocalMinimaDivergent.append([])
+            GroupedDistanceDivergent.append([])
+
+            GroupedLocalMinimaDivergent[j+1].append(LocalMinimaDivergent[i])
+            GroupedTimeLocalMinimaDivergent[j+1].append(TimeMinimaDivergent_s[i])
+            GroupedDistanceDivergent[j+1].append(DistanceDivergent[i])
+    
+
+# create a new list of LocalMinimaDamped and TimeLocalMinimaDamped where all alements are unique, by calculalatign the mean elemnt of each group and the minimal time
+
+LocalMinimaDivergent=[]
+TimeLocalMinimaDivergent=[]
+
+for i in range(len(GroupedLocalMinimaDivergent)):
+    LocalMinimaDivergent.append(np.mean(GroupedLocalMinimaDivergent[i], axis=0))
+    TimeLocalMinimaDivergent.append(np.min(GroupedTimeLocalMinimaDivergent[i]))
+    DistanceDivergent.append(np.mean(GroupedDistanceDivergent[i]))
+    
+    
 # now we can calculate the element of NumberOfFoundLocalMinimaO from TimeLocalMinimaO 
 
 for t in range(T_PSO):
@@ -191,7 +241,7 @@ for i in range(len(MinimaDamped)):
             DistanceDamped.append(np.linalg.norm(MinimaDamped[i]-sol))
             TimeLocalMinimaDamped.append(TimeMinimaDamping_s[i])
 
-# group all elements from LocalMinimumD in group such that all ellemnts in one group are closer than 0.1 
+# group all elements from LocalMinimumDamped in group such that all ellemnts in one group are closer than 0.1 
 
 GroupedLocalMinimaDamped=[]
 GroupedTimeLocalMinimaDamped=[]

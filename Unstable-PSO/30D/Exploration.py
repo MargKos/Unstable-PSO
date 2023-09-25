@@ -44,7 +44,6 @@ np.save('./Results/AverageNumberOfFoundLocalMinima'+str(nameDamped)+'', AverageN
 np.save('./Results/AverageNumberOfFoundLocalMinima'+str(nameDivergent)+'', AverageNumberOfFoundLocalMinimaDivergent)
 
 
-
 #%%
 AllLocalMinimaOverdamped=[] # all local minima found by overdamped PSO
 AllLocalMinimaDivergent=[] # all local minima found by divergent PSO
