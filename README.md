@@ -8,8 +8,9 @@ In the code are included:
 1. 1D: 8 benchmark functions
 2. 5D: Michalewicz function
 3. 30D: Rastrigin function
-   
 
+Getting Started
+Python version with 
 
 Explain how to get started with your project. This section should cover setting up the environment and installing any dependencies.
 Prerequisites
