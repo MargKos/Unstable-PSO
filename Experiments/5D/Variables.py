@@ -34,7 +34,7 @@ w_overdamped, mu_overdamped=Overdamped()
 # Simulation Parameters
 
 n=20 # number of particles
-T_PSO=2000 # number of timesteps
+T_PSO=20000 # number of timesteps
 
 sim=100 # has to fit to the batch file
 function_number=8 # number of the Michalewicz function
@@ -53,4 +53,4 @@ nameDamped=str(function_number)+str('Damped')+'Mu'+str(mu_damped)+'Particle'+str
 
 # path to save the simulations
 
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest4/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data/'

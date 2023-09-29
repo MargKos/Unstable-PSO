@@ -10,7 +10,7 @@
 #SBATCH --output=job_%a-%a.log                   # Standard output and error log
 
 
-common_folder="/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/30D"
+common_folder="/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D"
 date;hostname;pwd
 
 

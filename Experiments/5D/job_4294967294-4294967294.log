@@ -1,0 +1,4 @@
+Fr 29. Sep 16:17:25 CEST 2023
+htc-cmp024
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
+/var/spool/slurmd/htc-cmp024/job13593720/slurm_script: Zeile 13: cd: /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D: Datei oder Verzeichnis nicht gefunden

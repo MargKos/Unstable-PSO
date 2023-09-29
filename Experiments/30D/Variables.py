@@ -40,7 +40,7 @@ nameOverdamped=str('Overdamped')+'Mu'+str(mu_overdamped)+'Particle'+str(n)+'T'+s
 nameDamped=str('Damped')+'Mu'+str(mu_damped)+'Particle'+str(n)+'T'+str(T_PSO)
 
 # path to save
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/SimulationsTest4/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data30D/'
 #%%
 
 StartWerte=np.load('Boundary30D.npy')

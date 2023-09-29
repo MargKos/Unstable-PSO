@@ -9,7 +9,7 @@
 #SBATCH --time=00-3:00:00                      # Time limit (necessary for Z1)
 #SBATCH --output=job_%a-%a.log                  # Standard output and error log
 
-common_folder="/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D"
+common_folder="/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D"
 
 date;hostname;pwd
 

@@ -1,0 +1,65 @@
+Mi 27. Sep 14:23:47 CEST 2023
+htc-cmp101
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
+
+Hello! This is task number 0
+Mi 27. Sep 14:25:38 CEST 2023
+Mi 27. Sep 14:25:38 CEST 2023
+htc-cmp101
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
+
+Hello! This is task simulation 0
+done exploration0.1
+done exploration0.1
+done exploration0.1
+done exploration0.2
+done exploration0.2
+done exploration0.2
+done exploration0.30000000000000004
+done exploration0.30000000000000004
+done exploration0.30000000000000004
+done exploration0.4
+done exploration0.4
+done exploration0.4
+done exploration0.5
+done exploration0.5
+done exploration0.5
+done exploration0.6000000000000001
+done exploration0.6000000000000001
+done exploration0.6000000000000001
+done exploration0.7000000000000001
+done exploration0.7000000000000001
+done exploration0.7000000000000001
+done exploration0.8
+done exploration0.8
+done exploration0.8
+done exploration0.9
+done exploration0.9
+done exploration0.9
+done exploration1.0
+done exploration1.0
+done exploration1.0
+Mi 27. Sep 16:03:30 CEST 2023
+Mi 27. Sep 16:03:30 CEST 2023
+htc-cmp101
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D/Exploration5D.py", line 33, in <module>
+    AverageScoreDivergent=fct_average('Divergent', Eps[i+1])
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D/Exploration5D.py", line 21, in fct_average
+    Average=Average+np.load(path+'AllScores'+str(name)+str(eps)+str(s)+'.npy')*120 # multiplied by 120, if one wants the toal number instead of percentage
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data/AllScores8DivergentMu0.03Particle20T200000.166.npy'
+Mi 27. Sep 16:03:31 CEST 2023
+Mi 27. Sep 16:03:31 CEST 2023
+Mi 27. Sep 16:03:31 CEST 2023
+htc-cmp101
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D/Measures5D.py", line 24, in <module>
+    DivergentG=np.load(path+'G_s'+str(nameDivergent)+str(s)+'.npy', allow_pickle=True)
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 416, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+FileNotFoundError: [Errno 2] No such file or directory: '/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data/G_s8DivergentMu0.03Particle20T2000074.npy'
+Mi 27. Sep 16:03:31 CEST 2023
