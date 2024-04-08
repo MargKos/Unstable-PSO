@@ -307,7 +307,43 @@ axs[1,1].legend(bbox_to_anchor=(-1.41, 2.8, 1, 0.6), loc="upper left",ncol=3,  p
 plt.subplots_adjust(top=0.95, bottom=0.03, left=0.1, right=0.88)
 plt.savefig('./Fig4.png')
 
+#%% New Figure 4
 
+fig = plt.figure(figsize=(15,10))
+
+# Plot Damped Region
+
+plt.imshow(WMu, interpolation='nearest', cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
+plt.tick_params(labelsize=30)
+
+# Plot all points from SpectralBiggerThan7
+for i in range(len(SpectralBiggerThan7)):
+    plt.plot(SpectralBiggerThan7[i][1], SpectralBiggerThan7[i][0], 's', markersize=1, alpha=0.2, color='grey')
+
+# Plot all points in the damped region
+plt.plot(1.4, 0.68, 's', markersize=20, color='black', label='Overdamped')
+plt.plot(0.3215, 0.9 + 0.05, '^', markersize=20, color='black', label='Damped')
+plt.plot(0.14, 1, 'o', markersize=20, color='black')
+plt.plot(0.03, 1, 'o', markersize=20, color='black', label='Divergent')
+
+plt.text(0.75, 0.5, 'Damped Region', color='grey', fontsize=25, va='center', ha='left', fontweight='bold')
+# Make a box only under the last row in the center with latex label \mu
+plt.ylabel( r'$w$', fontsize=30)
+plt.xlabel( r'$\mu$', fontsize=30)
+
+# Adding legend
+plt.legend(bbox_to_anchor=(-0.06, 0.9, 1, 0.6), loc="center", ncol=3, prop={'size': legend_fontsize})
+
+# Adjusting subplot layout
+plt.subplots_adjust(top=0.95, bottom=0.03, left=0.1, right=0.88)
+
+# Save the figure
+plt.savefig('./Fig4.png')
+
+
+
+
+ddd
 #%%
 # calculate numerically first and second moments
 
@@ -402,6 +438,7 @@ axs[0].plot(np.linspace(0,T-1, T), STD_overdamped**2, linewidth=5)
 #axs[0].plot(np.linspace(0,T-1, T), Z_overdamped[2,:])
 axs[0].tick_params(axis='both', which='major', labelsize=30)
 axs[0].set_xlabel('time', fontsize=30)
+axs[0].set_ylabel('position', fontsize=30)
 axs[0].set_ylim(-0.5,1)
 
 # diverg. oscillating statistics
@@ -411,11 +448,13 @@ axs[1].plot(np.linspace(0,T-1, T), np.ones(T)*p_damped,linewidth=5,color='red')
 axs[1].plot(np.linspace(0,T-1, T), STD_damped**2,linewidth=5, label='var')
 #axs[1].plot(np.linspace(0,T-1, T), Z_damped[2,:])
 axs[1].set_xlabel('time', fontsize=30)
+axs[1].set_ylabel('position', fontsize=30)
 axs[1].tick_params(axis='both', which='major', labelsize=30)
 axs[1].set_ylim(-0.5,5)
 
 # damped statistics
 axs[2].set_title('Divergent', fontsize=30)
+axs[2].set_ylabel('position', fontsize=30)
 axs[2].plot(np.linspace(0,T-1, T), Z_divergent[0,:], linewidth=5,label='mean')
 axs[2].plot(np.linspace(0,T-1, T), STD_divergent**2, linewidth=5,label='var')
 #axs[2].plot(np.linspace(0,T-1, T), Z_divergent[2,:], label='second moment')

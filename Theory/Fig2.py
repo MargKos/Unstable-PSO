@@ -42,9 +42,6 @@ for k in range(500):
             else:
                 Region1a.append([W[k],Mu[j]])
             
-            if w>1:
-                print(w,mu)
-                
 
 #%%
 Region2a=[]
@@ -97,10 +94,10 @@ axs[1].set_ylim([-1.2, 1.2])  # Set x-axis limits
 axs[1].set_xlim([0, 4.5])     # Set y-axis limits
 
 axs[0].tick_params(labelsize=20)
-axs[0].set_title('Region 1 with real eigenvalues', fontsize=20)
+axs[0].set_title('Real Eigenvalues', fontsize=20)
 
 axs[1].tick_params(labelsize=20)
-axs[1].set_title('Region 2 with complex eigenvalues', fontsize=20)
+axs[1].set_title('Complex Eigenvalues', fontsize=20)
 
 # x-axis label between the two plots
 #fig.text(0.49, 0.1, r'$\mu$', ha='center', fontsize=20)
@@ -114,13 +111,13 @@ axs[0].text(-0.9, 0, 'w', va='center', rotation='vertical', fontsize=20)
 # Add legend
 
 # Custom legend
-legend_elements = [Patch(color='red', label=r'$\rho < 1$'),
-                   Patch(color='blue', label=r'$\rho > 1$')]
+legend_elements = [Patch(color='red', label=r'$\rho(A) < 1$'),
+                   Patch(color='blue', label=r'$\rho(A) > 1$')]
 
 
 #fig.legend(handles=legend_elements, loc='upper center', bbox_to_anchor=(0.5, 1.15), fontsize=16)
 
-fig.legend(handles=legend_elements, loc='upper center', bbox_to_anchor=(0.5, 1), fontsize=20, ncol=2)
+fig.legend(handles=legend_elements, loc='upper center', bbox_to_anchor=(0.45, 1), fontsize=25, ncol=2)
 
 
 # Other for Region 1a
