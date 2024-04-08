@@ -309,7 +309,7 @@ plt.savefig('./Fig4.png')
 
 #%% New Figure 4
 
-fig = plt.figure(figsize=(15,10))
+fig = plt.figure(figsize=(14,9))
 
 # Plot Damped Region
 
@@ -332,18 +332,35 @@ plt.ylabel( r'$w$', fontsize=30)
 plt.xlabel( r'$\mu$', fontsize=30)
 
 # Adding legend
-plt.legend(bbox_to_anchor=(-0.06, 0.9, 1, 0.6), loc="center", ncol=3, prop={'size': legend_fontsize})
+plt.legend(bbox_to_anchor=(-0.02, 0.9, 1, 0.6), loc="center", ncol=3, prop={'size': legend_fontsize})
 
 # Adjusting subplot layout
 plt.subplots_adjust(top=0.95, bottom=0.03, left=0.1, right=0.88)
 
+# plot compley hull of the second order stable region
+
+SecondOrder=np.array(SecondOrder)
+hullS=ConvexHull(SecondOrder)
+
+
+for simplex in hullS.simplices:
+    plt.plot(SecondOrder[simplex, 1], SecondOrder[simplex, 0],linewidth=2, color='black')
+
+cbar = plt.colorbar(shrink=0.58, pad=0.07)
+cbar.ax.tick_params(labelsize=25)  # Set fontsize for colorbar ticks
+cbar.ax.yaxis.set_ticks_position('left')  # Set position of colorbar ticks
+
+# Shrink the colorbar
+cbar.ax.figure.canvas.draw()
+cbar.ax.set_aspect(8)  # Adjust the aspect ratio to shrink the colorbar
+
+plt.tight_layout()
 # Save the figure
 plt.savefig('./Fig4.png')
 
 
 
 
-ddd
 #%%
 # calculate numerically first and second moments
 
@@ -426,8 +443,8 @@ pst_damped=0.5*np.sqrt((mu_damped*(w_damped+1))/(mu_damped*(5*w_damped-7)-12*w_d
 
 #%% create a figure with 3 columns and 1 row
 legend_fontsize=30
-fig, axs = plt.subplots(1, 3, figsize=(20,7))
-plt.subplots_adjust(top=0.78, bottom=0.22,left=0.05, right=0.95)
+fig, axs = plt.subplots(1, 3, figsize=(24,8))
+plt.subplots_adjust(top=0.78, bottom=0.22,left=0.08, right=0.95)
 
 # overdamped statistics
 
@@ -438,7 +455,7 @@ axs[0].plot(np.linspace(0,T-1, T), STD_overdamped**2, linewidth=5)
 #axs[0].plot(np.linspace(0,T-1, T), Z_overdamped[2,:])
 axs[0].tick_params(axis='both', which='major', labelsize=30)
 axs[0].set_xlabel('time', fontsize=30)
-axs[0].set_ylabel('position', fontsize=30)
+axs[0].set_ylabel('position',labelpad=-10, fontsize=30)
 axs[0].set_ylim(-0.5,1)
 
 # diverg. oscillating statistics
@@ -448,13 +465,13 @@ axs[1].plot(np.linspace(0,T-1, T), np.ones(T)*p_damped,linewidth=5,color='red')
 axs[1].plot(np.linspace(0,T-1, T), STD_damped**2,linewidth=5, label='var')
 #axs[1].plot(np.linspace(0,T-1, T), Z_damped[2,:])
 axs[1].set_xlabel('time', fontsize=30)
-axs[1].set_ylabel('position', fontsize=30)
+axs[1].set_ylabel('position', labelpad=1,fontsize=30)
 axs[1].tick_params(axis='both', which='major', labelsize=30)
 axs[1].set_ylim(-0.5,5)
 
 # damped statistics
 axs[2].set_title('Divergent', fontsize=30)
-axs[2].set_ylabel('position', fontsize=30)
+axs[2].set_ylabel('position',labelpad=-14, fontsize=30)
 axs[2].plot(np.linspace(0,T-1, T), Z_divergent[0,:], linewidth=5,label='mean')
 axs[2].plot(np.linspace(0,T-1, T), STD_divergent**2, linewidth=5,label='var')
 #axs[2].plot(np.linspace(0,T-1, T), Z_divergent[2,:], label='second moment')
@@ -468,6 +485,7 @@ axs[2].legend(bbox_to_anchor=(-1.5, 1.02, 1, 0.35), loc="upper left",
 axs[0].text(0.1, -0.3, '(a)', transform=axs[0].transAxes, fontsize=30, va='top', ha='right', weight='bold')
 axs[1].text(0.1, -0.3, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right',weight='bold')
 axs[2].text(0.1, -0.3, '(c)', transform=axs[2].transAxes, fontsize=30, va='top', ha='right', weight='bold')
+
 plt.savefig('Fig5.png')
 
 

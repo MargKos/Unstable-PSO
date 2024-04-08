@@ -118,7 +118,10 @@ axs[1].plot(SimulationsNumber,SimDivergent*120, 'o', markersize=7,color='blue', 
 axs[1].plot(SimulationsNumber,SimOverdamped*120,  color='orange')
 axs[1].plot(SimulationsNumber,SimDivergent*120, color='blue')
 axs[1].plot(SimulationsNumber,SimDamped*120, color='green')
-axs[1].plot(np.linspace(1,200,200),Random*120, color='black')
+
+axs[1].plot(np.linspace(1,200,200),Random*120, marker='o', markevery=9, color='black')
+
+
 axs[1].tick_params(axis='x', labelsize=30)
 axs[1].tick_params(axis='y', labelsize=30)
 axs[1].set_xlabel('number of simulations', fontsize=25)
