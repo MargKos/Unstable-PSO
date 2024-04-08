@@ -6,10 +6,14 @@ from Variables import *
 # calculates the mean function value of the swarm at time t for each function
 
 for function_number in range(8):
+    
+    print(function_number)
 
     fct=FunctionList[function_number]
     
-    #%% Mean Divergent 
+    
+    
+    # Mean Divergent 
             
     LossDivergent=np.zeros(T_PSO) # LossO gives the mean function value of the swarm at time t
     for t in range(T_PSO):
@@ -17,10 +21,13 @@ for function_number in range(8):
         List=[]
         for s in range(sim):
             # load global best position of simulation s
-            DivergentG=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy')
+            DivergentG=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy', allow_pickle=True)
             # evaluate function at global best position
             functionvalue=fct(DivergentG[:,t])
-            List.append(functionvalue)
+            if isinstance(functionvalue, (int, float)):
+                List.append(functionvalue)
+            else:
+                List.extend(functionvalue.tolist())
         
         # calculate the mean function value of the swarm at time t for each function
         LossDivergent[t]=np.mean(List)
@@ -28,7 +35,7 @@ for function_number in range(8):
     np.save('./Results/Mean'+str(nameDivergent[function_number])+'', LossDivergent)
 
 
-    #%% Mean Damped
+    # Mean Damped
             
     LossDamped=np.zeros(T_PSO)
     for t in range(T_PSO):
@@ -37,10 +44,13 @@ for function_number in range(8):
         List=[]
         for s in range(sim):
             # load global best position of simulation s
-            DampedG=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy')
+            DampedG=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy', allow_pickle=True)
             # evaluate function at global best position
             functionvalue=fct(DampedG[:,t])
-            List.append(functionvalue)
+            if isinstance(functionvalue, (int, float)):
+                List.append(functionvalue)
+            else:
+                List.extend(functionvalue.tolist())
 
         # calculate the mean function value of the swarm at time t for each function   
         LossDamped[t]=np.mean(List)
@@ -48,7 +58,7 @@ for function_number in range(8):
     # save the results
     np.save('./Results/Mean'+str(nameDamped[function_number])+'', LossDamped)
 
-    #%% Mean Overdamped
+    # Mean Overdamped
             
     LossOverdamped=np.zeros(T_PSO)
     for t in range(T_PSO):
@@ -60,13 +70,17 @@ for function_number in range(8):
             OverdampedG=np.load(path+'G_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
             # evaluate function at global best position
             functionvalue=fct(OverdampedG[:,t])
-            List.append(functionvalue)
+            if isinstance(functionvalue, (int, float)):
+                List.append(functionvalue)
+            else:
+                List.extend(functionvalue.tolist())
+            
         # calculate the mean function value of the swarm at time t for each function
         LossOverdamped[t]=np.mean(List)
 
     np.save('./Results/Mean'+str(nameOverdamped[function_number])+'', LossOverdamped)
 
-    #%% Concentration of particles around globale best
+    # Concentration of particles around globale best
 
     def fct_concentration(X, Gl,  eps): # X=particle positions, Gl=global best position, eps=radius of ball
         Concentration=np.zeros(T_PSO)
@@ -80,7 +94,7 @@ for function_number in range(8):
         
         return Concentration
 
-    #%%
+    #
     
     ConcentrationDamped=np.zeros(T_PSO)
     ConcentrationOverdamped=np.zeros(T_PSO)
@@ -88,13 +102,13 @@ for function_number in range(8):
     for s in range(sim):
         # load global best position of simulation s and positions of all particles
 
-        G_Damped=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy')
-        G_Overdamped=np.load(path+'G_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
-        G_Divergent=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy')
+        G_Damped=np.load(path+'G_s'+str(nameDamped[function_number])+str(s)+'.npy', allow_pickle=True)
+        G_Overdamped=np.load(path+'G_s'+str(nameOverdamped[function_number])+str(s)+'.npy', allow_pickle=True)
+        G_Divergent=np.load(path+'G_s'+str(nameDivergent[function_number])+str(s)+'.npy', allow_pickle=True)
 
-        X_Damped=np.load(path+'X_s'+str(nameDamped[function_number])+str(s)+'.npy')
-        X_Overdamped=np.load(path+'X_s'+str(nameOverdamped[function_number])+str(s)+'.npy')
-        X_Divergent=np.load(path+'X_s'+str(nameDivergent[function_number])+str(s)+'.npy')
+        X_Damped=np.load(path+'X_s'+str(nameDamped[function_number])+str(s)+'.npy', allow_pickle=True)
+        X_Overdamped=np.load(path+'X_s'+str(nameOverdamped[function_number])+str(s)+'.npy', allow_pickle=True)
+        X_Divergent=np.load(path+'X_s'+str(nameDivergent[function_number])+str(s)+'.npy', allow_pickle=True)
 
         # calculate the concentration of particles around the global best
     

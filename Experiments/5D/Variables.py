@@ -53,4 +53,4 @@ nameDamped=str(function_number)+str('Damped')+'Mu'+str(mu_damped)+'Particle'+str
 
 # path to save the simulations
 
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data5D/'

@@ -8,6 +8,7 @@ import matplotlib.ticker as ticker
 
 '''Calculates the waiting times and their quantiles to locate the local minima for the three different parameters '''
 
+
 #%% Collect the waiting times for the three different parameters in one list over all simulations and particles
 
 DivergentWaitingTimes=[] # waiting times of the Divergent parameters
@@ -139,7 +140,7 @@ axs[0].legend(bbox_to_anchor=(0.2, 1.02, 1, 0.3), loc="upper left",
 
 axs[0].text(0.54, -0.25, '(a)', transform=axs[0].transAxes, fontsize=30, va='top', ha='right')
 axs[1].text(0.54, -0.25, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right')
-plt.savefig('./Plots/Fig10.eps')
+#plt.savefig('./Plots/Fig10.eps')
 
 
 

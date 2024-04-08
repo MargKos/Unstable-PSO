@@ -31,8 +31,7 @@ for t in range(T_PSO):
     LossDivergent[t]=np.mean(List)
 
 # save the results
-np.save('./Results/Mean'+str(nameDivergent)+'', LossDivergent)
-
+#np.save('./Results/Mean'+str(nameDivergent)+'', LossDivergent)
 
 #%% Mean Damped
         
@@ -52,7 +51,7 @@ for t in range(T_PSO):
     LossDamped[t]=np.mean(List)
 
 # save the results
-np.save('./Results/Mean'+str(nameDamped)+'', LossDamped)
+#np.save('./Results/Mean'+str(nameDamped)+'', LossDamped)
 
 #%% Mean Overdamped
         
@@ -71,9 +70,11 @@ for t in range(T_PSO):
     # calculate mean function value of each time step  
     LossOverdamped[t]=np.mean(List)
 # save the results
-np.save('./Results/Mean'+str(nameOverdamped)+'', LossOverdamped)
+#np.save('./Results/Mean'+str(nameOverdamped)+'', LossOverdamped)
 
 
+
+ggg
 #%% Concentration of particles around globale best
 
 def fct_concentration(X, Gl,  eps): # X=particle positions, Gl=global best position, eps=radius of ball

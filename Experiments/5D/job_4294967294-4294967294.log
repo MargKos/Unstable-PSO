@@ -1,4 +1,17 @@
-Fr 29. Sep 16:17:25 CEST 2023
-htc-cmp024
+So 18. Feb 21:22:26 CET 2024
+htc-cmp134
 /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
-/var/spool/slurmd/htc-cmp024/job13593720/slurm_script: Zeile 13: cd: /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D: Datei oder Verzeichnis nicht gefunden
+/var/spool/slurmd/htc-cmp134/job366789/slurm_script: Zeile 13: cd: /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D: Datei oder Verzeichnis nicht gefunden
+done8DampedMu0.3215Particle20T2000020
+done8OverdampedMu1.4Particle20T2000020
+done8DivergentMu0.03Particle20T2000020
+done8DampedMu0.3215Particle20T2000050
+done8OverdampedMu1.4Particle20T2000050
+done8DivergentMu0.03Particle20T2000050
+done8DampedMu0.3215Particle20T20000100
+done8OverdampedMu1.4Particle20T20000100
+done8DivergentMu0.03Particle20T20000100
+done8DampedMu0.3215Particle20T20000200
+done8OverdampedMu1.4Particle20T20000200
+done8DivergentMu0.03Particle20T20000200
+Mo 19. Feb 07:25:24 CET 2024

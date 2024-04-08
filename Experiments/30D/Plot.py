@@ -137,3 +137,57 @@ axs[1].text(AllLocalMinimaDivergentValue.min()+0.5, 100, str(F_O), fontsize=26, 
 
 plt.savefig('./Plots/Fig8.eps')
 
+#%% with random search
+
+
+
+b1=-5.12
+b2=5.12
+
+#%% Load local minima
+
+AllLocalMinimaOverdamped=np.load('./Results/AllLocalMinima'+str(nameOverdamped)+'.npy')
+AllLocalMinimaDamped=np.load('./Results/AllLocalMinima'+str(nameDamped)+'.npy')
+AllLocalMinimaDivergent=np.load('./Results/AllLocalMinima'+str(nameDivergent)+'.npy')
+
+#%% define random search
+
+def random_search_(number_samples, simulations, bd1, bd2, LocalMinima, dim, eps):
+    
+    NumberOfFoundLocalMinima=np.zeros(simulations)
+    score=np.zeros(len(LocalMinima))
+    for s in range(simulations):
+        
+        # generate number_samples samples
+        
+        Samples=np.random.uniform(bd1, bd2, size=(number_samples, dim))
+        
+        # check how many local minima found 
+        
+        for k in range(len(LocalMinima)):
+            # check for lall ocal minima that were not found so far if some particle i foudn it at time t
+            if score[k]==0:
+                # check for each particle
+                for  i in range(number_samples):
+                    if np.linalg.norm(Samples[i,:]-LocalMinima[k])<eps:
+                        score[k]=1
+                        break
+        
+        NumberOfFoundLocalMinima[s]=np.count_nonzero(score)/len(LocalMinima)
+    
+    return NumberOfFoundLocalMinima
+            
+            
+        
+        
+#%% 
+eps=10
+number_samples=20
+simulations=400
+dim=30
+#%% Rastrigin
+
+NumberOfFoundLocalMinimaDivergent=random_search_(number_samples, simulations,b1,b2,AllLocalMinimaDivergent , dim, eps)
+fig=plt.figure()
+plt.plot(NumberOfFoundLocalMinimaDivergent)
+plt.plot(np.ones(simulation)*47.4)

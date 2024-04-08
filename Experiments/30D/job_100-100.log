@@ -1,3 +1,45 @@
-Fr 29. Sep 16:25:15 CEST 2023
-htc-cmp508
+Di 5. Mär 11:21:20 CET 2024
+htc-cmp521
 /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D
+
+Hello! This is task number 99
+Di 5. Mär 12:17:36 CET 2024
+Di 5. Mär 12:17:36 CET 2024
+htc-cmp521
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D
+
+Hello! This is task number 99
+Di 5. Mär 12:18:47 CET 2024
+Di 5. Mär 12:18:47 CET 2024
+htc-cmp521
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D/Statistics.py", line 42, in <module>
+    XgOverdamped=np.load(path+'G_s' + str(nameOverdamped) + str(s) + '.npy' ) # load the global best positions of the overdamped PSO
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 405, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data30D/G_sOverdampedMu1.4Particle20T5000001.npy'
+Di 5. Mär 12:18:51 CET 2024
+Di 5. Mär 12:18:51 CET 2024
+htc-cmp521
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D
+
+Hello! This is task number 99
+done exploration divergent parameters
+done exploration damped parameters
+done exploration overdamped parameters
+Di 5. Mär 13:07:13 CET 2024
+Di 5. Mär 13:07:13 CET 2024
+htc-cmp521
+/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D
+Traceback (most recent call last):
+  File "/home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/30D/Exploration.py", line 25, in <module>
+    NumberOfFoundLocalMinimaOverdamped=np.load(path+'NumberOfFoundLocalMinima'+str(nameOverdamped)+str(s)+'.npy')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/numpy/lib/npyio.py", line 405, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data30D/NumberOfFoundLocalMinimaOverdampedMu1.4Particle20T5000000.npy'
+Di 5. Mär 13:07:13 CET 2024

@@ -117,10 +117,24 @@ def PSO(start, name, w, mu, counter): # start is the number of the starting poin
                 g_best=X0[:,i]
         
         Gbest[:,t+1]=g_best
+        
     # save the results
+
+    
+    # Determine the maximum length of inner lists
+    max_length = max(len(inner_list) for inner_list in NumberofIterations)
+    
+    # Pad inner lists with a placeholder value (e.g., -1)
+    padded_NumberofIterations = [inner_list + [-1]*(max_length - len(inner_list)) for inner_list in NumberofIterations]
+    
+    # Convert padded list of lists into a NumPy array
+    NumberofIterations_array = np.array(padded_NumberofIterations)
+    
+    # Save the NumPy array
+    np.save(path+'NumberofIterations_s' + str(name) + str(start) + '.npy', NumberofIterations_array)
     np.save(path+'G_s' + str(name) + str(start) + '.npy', Gbest)
     np.save(path+'Minima_s' + str(name) + str(start) + '.npy', Minima)
-    np.save(path+'NumberofIterations_s' + str(name) + str(start) + '.npy', NumberofIterations)
+    #np.save(path+'NumberofIterations_s' + str(name) + str(start) + '.npy', NumberofIterations)
     np.save(path+'TimesMinima_s' + str(name) + str(start) + '.npy', TimesMinima)
     
     return Gbest, NumberofIterations, Minima

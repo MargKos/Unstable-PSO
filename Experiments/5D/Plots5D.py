@@ -48,9 +48,9 @@ axs[1].set_title('Exploitation',fontsize=30)
 axs[1].set_ylabel('concentration', fontsize=30)
 axs[0].legend(bbox_to_anchor=(0.2, 1.1, 1, 0.3), loc="upper left",
                ncol=3,  prop={'size': legend_fontsize})
-axs[0].text(0.54, -0.25, '(a)', transform=axs[0].transAxes, fontsize=30, va='top', ha='right')
-axs[1].text(0.54, -0.25, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right')
-plt.savefig('./Plots/Fig5.eps')
+axs[0].text(0.1, -0.3, '(a)', transform=axs[0].transAxes, fontsize=30, va='top', ha='right',  fontweight='bold')
+axs[1].text(0.1, -0.3, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right', fontweight='bold')
+plt.savefig('./Plots/Fig8.png')
 
 
 #%%
@@ -68,6 +68,8 @@ for i in range(10):
     AverageExplorationDivergent[i]=ExplorationDivergent[-1]
     AverageExplorationOverdamped[i]=ExplorationOverdamped[-1]
     AverageExplorationDamped[i]=ExplorationDamped[-1]
+
+
 
 eps=0.3
 SimulationsNumber=[20,50, 100, 200] # should fit to the numbers in Exploration5D.py
@@ -87,23 +89,27 @@ for s in range(4):
     SimOverdamped[s]=ExplorationOverdampedSim[-1]
     SimDamped[s]=ExplorationDampedSim[-1]
 
+#%%
+Random=np.load('./Results/Random.npy')
 
 #%% Plot the average exploration and the commulative exploration of last time step in ine Figure
 legend_fontsize=30
 SimulationsNumber=[20,50, 100, 200]
 T_PSO_s=170
+
 fig, axs = plt.subplots(1, 2, figsize=(20,7))
-plt.subplots_adjust(top=0.8, bottom=0.2,left=0.1, right=0.95)
+plt.subplots_adjust(top=0.8, bottom=0.22,left=0.1, right=0.95)
+
 axs[0].plot(Eps[1:11],AverageExplorationOverdamped, 's',markersize=9, color='orange', label='Overdamped')
 axs[0].plot(Eps[1:11],AverageExplorationDamped,'^', markersize=7, color='green', label='Damped')
 axs[0].plot(Eps[1:11],AverageExplorationDivergent, 'o', markersize=7,color='blue', label='Divergent')
 axs[0].plot(Eps[1:11],AverageExplorationOverdamped,  color='orange')
 axs[0].plot(Eps[1:11],AverageExplorationDivergent, color='blue')
 axs[0].plot(Eps[1:11],AverageExplorationDamped, color='green')
-axs[0].tick_params(axis='x', labelsize=26)
-axs[0].tick_params(axis='y', labelsize=26)
-axs[0].set_xlabel(r'$\epsilon_\theta$',  fontsize=26)
-axs[0].set_ylabel('number of found minima',fontsize=26)
+axs[0].tick_params(axis='x', labelsize=30)
+axs[0].tick_params(axis='y', labelsize=30)
+axs[0].set_xlabel(r'$\epsilon_\theta$',  fontsize=30)
+axs[0].set_ylabel('number of found minima',fontsize=25)
 
 
 axs[1].plot(SimulationsNumber,SimOverdamped*120, 's',markersize=9, color='orange', label='Overdamped')
@@ -112,14 +118,17 @@ axs[1].plot(SimulationsNumber,SimDivergent*120, 'o', markersize=7,color='blue', 
 axs[1].plot(SimulationsNumber,SimOverdamped*120,  color='orange')
 axs[1].plot(SimulationsNumber,SimDivergent*120, color='blue')
 axs[1].plot(SimulationsNumber,SimDamped*120, color='green')
-axs[1].tick_params(axis='x', labelsize=26)
-axs[1].tick_params(axis='y', labelsize=26)
-axs[1].set_xlabel('number of simulations', fontsize=26)
-axs[1].set_ylabel('number of found minima', fontsize=26)
+axs[1].plot(np.linspace(1,200,200),Random*120, color='black')
+axs[1].tick_params(axis='x', labelsize=30)
+axs[1].tick_params(axis='y', labelsize=30)
+axs[1].set_xlabel('number of simulations', fontsize=25)
+axs[1].set_ylabel('number of found minima', fontsize=25)
 axs[0].legend(bbox_to_anchor=(0.2, 1.02, 1, 0.3), loc="upper left",
                ncol=3,  prop={'size': legend_fontsize})
 plt.xticks([20, 50, 100, 200])
-axs[0].text(0.54, -0.22, '(a)', transform=axs[0].transAxes, fontsize=26, va='top', ha='right')
-axs[1].text(0.54, -0.22, '(b)', transform=axs[1].transAxes, fontsize=26, va='top', ha='right')
-plt.savefig('./Plots/Fig6.eps')
+# Adding text next to the black line in the second subplot
+axs[1].text(100, 70, 'Random Search', fontsize=25, va='center', ha='left')
+axs[0].text(0.1, -0.3, '(a)', transform=axs[0].transAxes, fontsize=30, va='top', ha='right', fontweight='bold')
+axs[1].text(0.1, -0.3, '(b)', transform=axs[1].transAxes, fontsize=30, va='top', ha='right',  fontweight='bold')
+plt.savefig('./Plots/Fig9.png')
 

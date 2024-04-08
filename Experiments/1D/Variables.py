@@ -50,7 +50,7 @@ for function_number in range(8):
 
 
 # define path where to save simulations
-path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data/'
+path='/home/htc/bzfkostr/SCRATCH/SimulationsPSO/Data1D/'
 
 # load starting points for each test function
 StartingPoints=np.load('Boundary1D.npy')
