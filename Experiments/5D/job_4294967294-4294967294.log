@@ -1,17 +1,4 @@
-So 18. Feb 21:22:26 CET 2024
-htc-cmp134
+Do 18. Jul 14:57:41 CEST 2024
+htc-cmp501
 /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/Experiments/5D
-/var/spool/slurmd/htc-cmp134/job366789/slurm_script: Zeile 13: cd: /home/htc/bzfkostr/GitCodePSO/Unstable-PSO/5D: Datei oder Verzeichnis nicht gefunden
-done8DampedMu0.3215Particle20T2000020
-done8OverdampedMu1.4Particle20T2000020
-done8DivergentMu0.03Particle20T2000020
-done8DampedMu0.3215Particle20T2000050
-done8OverdampedMu1.4Particle20T2000050
-done8DivergentMu0.03Particle20T2000050
-done8DampedMu0.3215Particle20T20000100
-done8OverdampedMu1.4Particle20T20000100
-done8DivergentMu0.03Particle20T20000100
-done8DampedMu0.3215Particle20T20000200
-done8OverdampedMu1.4Particle20T20000200
-done8DivergentMu0.03Particle20T20000200
-Mo 19. Feb 07:25:24 CET 2024
+slurmstepd-htc-cmp501: error: *** JOB 3807433 ON htc-cmp501 CANCELLED AT 2024-07-19T00:58:01 DUE TO TIME LIMIT ***

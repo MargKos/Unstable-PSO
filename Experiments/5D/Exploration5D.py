@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from Variables import *
 
 #%% average the number of found local minima that were calculated in Exploration5DMultiprocessing
-
+T_PSO_s=200
 def fct_average(Parameters, eps): # Paramerter: Damped, Overdamped, Divergent eps=radius of ball
-    Average=np.zeros(T_PSO) # Average gives the average number of local minima found at time t over all simulations
+    Average=np.zeros(T_PSO_s) # Average gives the average number of local minima found at time t over all simulations
 
     if Parameters=='Damped':
         name=nameDamped
@@ -15,9 +15,22 @@ def fct_average(Parameters, eps): # Paramerter: Damped, Overdamped, Divergent ep
     
     if Parameters=='Divergent':
         name=nameDivergent
+    
+    if Parameters=='A':
+        
+        name=nameA
+
+    if Parameters=='B':
+        
+        name=nameB
+    
+    if Parameters=='C':
+       
+        name=nameC
 
     # load the data of each simulation and average it
     for s in range(sim):
+        print(np.shape(np.load(path+'AllScores'+str(name)+str(eps)+str(s)+'.npy')*120))
         Average=Average+np.load(path+'AllScores'+str(name)+str(eps)+str(s)+'.npy')*120 # multiplied by 120, if one wants the toal number instead of percentage
     
     
@@ -26,21 +39,32 @@ def fct_average(Parameters, eps): # Paramerter: Damped, Overdamped, Divergent ep
 
 #%% Averages the number of calculated local minima for each radius eps, the array Eps has to correspond to the one in Exploration5DMultiprocessing5D.py
 
-Eps=np.arange(0,1+0.1,0.1)
+#Eps=np.arange(0,1+0.1,0.1)
+Eps=np.arange(0.05,0.4,0.025)
                         
 for i in range(len(Eps)-1):
 
-    AverageScoreDivergent=fct_average('Divergent', Eps[i+1])
-    AverageScoreDamped=fct_average('Damped', Eps[i+1])
-    AverageScoreOverdamped=fct_average('Overdamped', Eps[i+1]) 
+    AverageScoreDivergent=fct_average('Divergent', Eps[i])
+    AverageScoreDamped=fct_average('Damped', Eps[i])
+    AverageScoreOverdamped=fct_average('Overdamped', Eps[i]) 
+    
+    AverageScoreA=fct_average('A', Eps[i])
+    AverageScoreB=fct_average('B', Eps[i])
+    AverageScoreC=fct_average('C', Eps[i])
 
     # save the results
 
-    np.save('./Results/AverageScore'+str(nameDivergent)+str(Eps[i+1]),AverageScoreDivergent )
+    np.save('./Results/AverageScore'+str(nameDivergent)+str(Eps[i]),AverageScoreDivergent )
     
-    np.save('./Results/AverageScore'+str(nameDamped)+str(Eps[i+1]), AverageScoreDamped)
+    np.save('./Results/AverageScore'+str(nameDamped)+str(Eps[i]), AverageScoreDamped)
 
-    np.save('./Results/AverageScore'+str(nameOverdamped)+str(Eps[i+1]), AverageScoreOverdamped)
+    np.save('./Results/AverageScore'+str(nameOverdamped)+str(Eps[i]), AverageScoreOverdamped)
+    
+    np.save('./Results/AverageScore'+str(nameA)+str(Eps[i]),AverageScoreDivergent )
+    
+    np.save('./Results/AverageScore'+str(nameB)+str(Eps[i]), AverageScoreDamped)
+
+    np.save('./Results/AverageScore'+str(nameC)+str(Eps[i]), AverageScoreOverdamped)
     
 # Load local minima of Michalewicz function
  
@@ -63,6 +87,15 @@ def fct_local_minima(Parameters, sim, T_PSO, eps): # Parameters: Damped, Overdam
     
     if Parameters=='Divergent':
         name=nameDivergent
+    
+    if Parameters=='A':
+        name=nameA
+
+    if Parameters=='B':
+        name=nameB
+    
+    if Parameters=='C':
+        name=nameC
     
     # Load the data of each simulation and store it efficiently
 
@@ -102,5 +135,8 @@ for s in range(4):
     fct_local_minima('Damped', SimulationsNumber[s], 2000, 0.52)
     fct_local_minima('Overdamped', SimulationsNumber[s], 2000, 0.52)
     fct_local_minima('Divergent', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('A', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('B', SimulationsNumber[s], 2000, 0.52)
+    fct_local_minima('C', SimulationsNumber[s], 2000, 0.52)
 
 

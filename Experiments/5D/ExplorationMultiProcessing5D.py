@@ -31,6 +31,18 @@ def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Damped, Overdamped,
     if Parameters=='Divergent':
         X=np.load(path+'X_s'+str(nameDivergent)+str(simulation)+'.npy')
         name=nameDivergent
+    
+    if Parameters=='A':
+        X=np.load(path+'X_s'+str(nameA)+str(simulation)+'.npy')
+        name=nameA
+
+    if Parameters=='B':
+        X=np.load(path+'X_s'+str(nameB)+str(simulation)+'.npy')
+        name=nameB
+    
+    if Parameters=='C':
+        X=np.load(path+'X_s'+str(nameC)+str(simulation)+'.npy')
+        name=nameC
 
     AllScores=np.zeros(T_PSO) # AllScores gives nuber of local minima found until time t
     score=np.zeros(len(LocalMinimas)) #score is a binaer vector that is 1 if local minima was found and 0 else
@@ -56,10 +68,12 @@ def fct_local_minima(Parameters,T_PSO, eps,s): # Parameters: Damped, Overdamped,
 #%% Calculate the average number for different eps
 
 # generate an array with different eps
-
-Eps=np.arange(0,1+0.1,0.1)
-
-for i in range(len(Eps)-1): # loop of different radi
-    fct_local_minima('Divergent',T_PSO,Eps[i+1],simulation)
-    fct_local_minima('Overdamped',T_PSO,Eps[i+1],simulation) 
-    fct_local_minima('Damped',T_PSO,Eps[i+1], simulation)
+#Eps=np.arange(0.05,0.4,0.05)
+Eps=np.arange(0.05,0.4,0.025)
+for i in range(len(Eps)): # loop of different radi
+    fct_local_minima('Divergent',200,Eps[i],simulation)
+    fct_local_minima('Overdamped',200,Eps[i],simulation) 
+    fct_local_minima('Damped',200,Eps[i], simulation)
+    fct_local_minima('A',200,Eps[i],simulation)
+    fct_local_minima('B',200,Eps[i],simulation) 
+    fct_local_minima('C',200,Eps[i], simulation)

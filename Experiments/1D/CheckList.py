@@ -16,10 +16,8 @@ Created on Fri Jun 16 10:23:57 2023
 
 
 1) Run simulations
-1.2 In 30D run a short 
 2) Calculate basic statistics
-3) Calculate Exploration
-3.1 For 5D and 30D run multi processing
-3.2 average
+3) Calculate Exploration and Exploitation
+4) Do Plot
 
 '''

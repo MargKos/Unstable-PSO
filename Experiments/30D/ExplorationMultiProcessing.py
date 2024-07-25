@@ -16,6 +16,10 @@ else:
     simulation = int(sys.argv[1]) - 1
     print('\nHello! This is task number', simulation)
 
+# parameters for classifying a minimum 
+
+dg=0.000005 # how small the maximal gradient in one direction should be to be called a minimum
+dl=0.5      # how far apart two minima have to be to be classified as two different
 
 #%% Check if loccal Minima
 
@@ -104,7 +108,7 @@ for i in range(len(GroupedMinimaDivergent)):
 for i in range(len(MinimaDivergent)): # go through all unique steady local best positions
     res = minimize(fct_Rastrigin, MinimaDivergent[i], method='CG',options={'disp': False, 'maxiter':1000000})
     sol=res.x
-    if np.max(np.abs(gradient(sol)))<0.01: # check if gradient is small   
+    if np.max(np.abs(gradient(sol)))<dg: # check if gradient is small   
         if hesse(sol)=='min': # check if min, max or saddlepoint  
             LocalMinimaDivergent.append(sol) # append local minima to list of localminima
             DistanceDivergent.append(np.linalg.norm(MinimaDivergent[i]-sol)) # save distance from steady local best position to local minima
@@ -128,7 +132,7 @@ for i in range(len(LocalMinimaDivergent)):
         # find the right group for MinimaDivergent[i]
         for j in range(len(GroupedLocalMinimaDivergent)):
             for k in range(len(GroupedLocalMinimaDivergent[j])):
-                if np.linalg.norm(LocalMinimaDivergent[i]-GroupedLocalMinimaDivergent[j][k])<0.1:
+                if np.linalg.norm(LocalMinimaDivergent[i]-GroupedLocalMinimaDivergent[j][k])<dl:
                     GroupedLocalMinimaDivergent[j].append(LocalMinimaDivergent[i])
                     GroupedTimeLocalMinimaDivergent[j].append(TimeLocalMinimaDivergent[i])
                     GroupedDistanceDivergent[j].append(DistanceDivergent[i])
@@ -233,7 +237,7 @@ for i in range(len(MinimaDamped)):
     res = minimize(fct_Rastrigin, MinimaDamped[i], method='CG',options={'disp': False, 'maxiter':1000000})
 
     sol=res.x
-    if np.max(np.abs(gradient(sol)))<0.01:
+    if np.max(np.abs(gradient(sol)))<dg:
         
         if hesse(sol)=='min':
             
@@ -260,7 +264,7 @@ for i in range(len(LocalMinimaDamped)):
         # find the right group for MinimaDamped[i]
         for j in range(len(GroupedLocalMinimaDamped)):
             for k in range(len(GroupedLocalMinimaDamped[j])):
-                if np.linalg.norm(LocalMinimaDamped[i]-GroupedLocalMinimaDamped[j][k])<0.1:
+                if np.linalg.norm(LocalMinimaDamped[i]-GroupedLocalMinimaDamped[j][k])<dl:
                     GroupedLocalMinimaDamped[j].append(LocalMinimaDamped[i])
                     GroupedTimeLocalMinimaDamped[j].append(TimeLocalMinimaDamped[i])
                     GroupedDistanceDamped[j].append(DistanceDamped[i])
@@ -367,7 +371,7 @@ for i in range(len(MinimaOverdamped)):
 
     
     sol=res.x
-    if np.max(np.abs(gradient(sol)))<0.01:
+    if np.max(np.abs(gradient(sol)))<dg:
         
         if hesse(sol)=='min':
             
@@ -394,7 +398,7 @@ for i in range(len(LocalMinimaOverdamped)):
         # find the right group for Minima[i]
         for j in range(len(GroupedLocalMinimaOverdamped)):
             for k in range(len(GroupedLocalMinimaOverdamped[j])):
-                if np.linalg.norm(LocalMinimaOverdamped[i]-GroupedLocalMinimaOverdamped[j][k])<0.1:
+                if np.linalg.norm(LocalMinimaOverdamped[i]-GroupedLocalMinimaOverdamped[j][k])<dl:
                     GroupedLocalMinimaOverdamped[j].append(LocalMinimaOverdamped[i])
                     GroupedTimeLocalMinimaOverdamped[j].append(TimeLocalMinimaOverdamped[i])
                     GroupedDistanceOverdamped[j].append(DistanceOverdamped[i])

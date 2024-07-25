@@ -16,7 +16,10 @@ Set in Variable.py:
 - where to save the files 'path'
 - select starting points (eventually generate startings points in StartingPoints.py )
 
-0) Calculate Waiting timess
+0) Calculate Waiting times
+    0.1 Run PSO with a small number of time steps T_PSO_short
+    0.2 Run WaitingTimes.py
+    0.3 write down the waiting times in Variables.py
 
 1) Run simulations (in -sh file)
 1.1 Run PSO simulations PSO.py with multiprocessing

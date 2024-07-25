@@ -16,6 +16,7 @@ Set in Variable.py:
 - where to save the files
 - select starting points (eventually generate startings points in StartingPoints.py )
 
+0) generate starting points in StartingPoint1D.py
 1) Run simulations (in -sh file)
 1.1 Run PSO simulations PSO1D.py with multiprocessing
 1.2 Run Exploration1D.py to calculate average exploration

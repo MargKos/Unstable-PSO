@@ -109,4 +109,7 @@ PSO(simulation, nameDivergent,w_divergent, mu_divergent)
 PSO(simulation, nameDamped, w_damped, mu_damped)
 PSO(simulation, nameOverdamped, w_overdamped, mu_overdamped)
 
+PSO(simulation, nameA,w_A, mu_A)
+PSO(simulation, nameB, w_B, mu_B)
+PSO(simulation, nameC, w_C, mu_C)
 

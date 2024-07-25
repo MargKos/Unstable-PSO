@@ -106,8 +106,6 @@ for s in range(sim):
 def f(x):
     return (x-2)*0.5
 
-def f1(x):
-    return 1
 
 X=np.linspace(0,4,100)
 # Create a figure and axis for subplots
