@@ -11,6 +11,7 @@ Before running the simulations, configure the following parameters in the `Varia
 - **Number of iteration steps:** Specify the total number of iteration steps for each simulation.
 - **Output directory:** Choose where to save the simulation results and generated figures.
 - **Starting points:** Select or generate starting points. You can use predefined starting points or generate them using the `StartingPoints.py` script.
+- **PSO Parameters:** Define which inertia factor w and which coginitive/social learning rate mu to use (to distinguish the experimental outcome for different parameters, define names for th output files).
 
 ## 2. Workflow Overview
 
@@ -21,8 +22,8 @@ Generate the initial starting points for the simulations by running the `Startin
 1. **Generate Starting Points:** Use `StartingPoint1D.py` to create initial data and set PSO parameters in `Variables.py`.
 2. **Run PSO Simulations:** Perform PSO simulations with `run_python_(example).sh` using multiprocessing.
 3. **Calculte number of discovered local minima:** Perform `ExplorationMultiProcessing.py` for every PSO simulation with `run_python_Exploration.sh` using multiprocessing.
-4. **Calculate Average Exploration:** Use `run_python_ExplorationMulti.py` to compute the average exploration.
-5. **Calculate Mean Function Values and Average Exploitation:** Execute `Measures_(example).py` for these calculations.
+4. **Calculate Exploration of each simulation:** Use `run_python_ExplorationMulti.py` to compute the average exploration.
+5. **Calculate Mean Function Values and Average, Exploitation Exploitation:** Execute `Measures_(example).py` for these calculations.
 6. **Generate Figures:** Create figures using `Fig().py` or `Fig().ipynb`.
 
 To calculate the waiting times, run short PSO simulations and evaluate how long a bird in PSO did not change the position in `WaitingTimesFig13.ipynb`.
