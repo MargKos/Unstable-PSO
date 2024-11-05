@@ -48,7 +48,7 @@ To calculate the waiting times, run short PSO simulations and evaluate how long 
 
 # Getting Started
 
-Ensure you have the required Python version and dependencies. [Details to be provided here.]
+Python 3.11.2 version
 
 # License
 
@@ -56,4 +56,5 @@ This project is licensed under the MIT License. See the `LICENSE.tex` file for d
 
 # Acknowledgments
 
-If your project uses third-party libraries, tools, or other resources, please acknowledge them here. You can also thank individuals or teams who contributed to the project.
+We acknowledge funding from the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under the Germany’s Excellence Strategy -- The Berlin Mathematics Research Center MATH+ (EXC-2046/1 project ID: 390685689)  and the Berlin Institute for the Foundations of Learning and Data (BIFOLD) (Project BIFOLD-BZML 01IS18037H).
+
