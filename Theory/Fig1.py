@@ -92,14 +92,12 @@ for k in range(1000):
         
 #%% Realtion between theta and rB
 
-# Extract theta and R values from the matrices
-# Extract all theta and R values from the matrices
-#theta_values = Theta.flatten()
+
+
 theta_values = WMu.flatten()
 r_values = D.flatten()
 
 # Discretize the theta axis into 10 parts
-#theta_bins = np.linspace(np.min(theta_values), np.max(theta_values), 30)
 theta_bins = np.linspace(np.min(theta_values), 1, 10)
 
 # Initialize lists to store bar heights and positions
@@ -134,7 +132,7 @@ plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
 
 plt.savefig('Rho_BD.pdf')
-#sns.catplot(x="Medal", y="Year", hue="Gender",kind="box", data=df)
+
 
 #%%
 target_value = 0.645
@@ -186,8 +184,6 @@ Vmin=0
 
 
 
-
-
 fig=plt.figure()
 
 plt.imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1])
@@ -214,19 +210,17 @@ x_hullF_closed = np.append(x_hullF, x_hullF[0])
 y_hullF_closed = np.append(y_hullF, y_hullF[0])
 
 polygon = Polygon(np.column_stack((x_hullF_closed, y_hullF_closed)), closed=True, edgecolor=None, facecolor='grey', alpha=0.5)
-#plt.add_patch(polygon)
+
 
 # make a box only under the last row  in the centre with latex label \mu
 fig.text(0.49, 0.2, r'$\mu$', ha='center', fontsize=20)
 
 # y-axis label next to the left plot
 fig.text(0, 0.53, 'w', va='center', rotation='vertical', fontsize=20)
-#cbar_ax = fig.add_axes([0.89, 0.14, 0.03, 0.7])  # [left, bottom, width, height]
 cbar = plt.colorbar( shrink=0.82)  # Experiment with the shrink value
 
 # Increase the size of colorbar ticks
 cbar.ax.tick_params(labelsize=16) 
-#cbar.ax.tick_params(labelsize=26)
 plt.xticks(fontsize=12)  # Adjust the fontsize parameter as needed
 plt.yticks(fontsize=12)
 #plt.legend(bbox_to_anchor=(-1.41, 2.8, 1, 0.6), loc="upper left",ncol=3,  prop={'size': legend_fontsize})
@@ -262,7 +256,7 @@ x_hullF_closed = np.append(x_hullF, x_hullF[0])
 y_hullF_closed = np.append(y_hullF, y_hullF[0])
 
 polygon = Polygon(np.column_stack((x_hullF_closed, y_hullF_closed)), closed=True, edgecolor=None, facecolor='grey', alpha=0.5)
-#plt.add_patch(polygon)
+
 
 # make a box only under the last row  in the centre with latex label \mu
 fig.text(0.49, 0.2, r'$\mu$', ha='center', fontsize=20)
@@ -329,7 +323,6 @@ axs[0].text(-0.8, 0, 'w', va='center', rotation='vertical', fontsize=20)
 
 # Increase the size of colorbar ticks
 cbar.ax.tick_params(labelsize=20) 
-#cbar.ax.tick_params(labelsize=26)
 axs[0].tick_params(axis='both', labelsize=20)
 
 im=axs[1].imshow(WMu,  interpolation='nearest',cmap=Cmap, vmin=Vmin, vmax=Vmax, extent=[0.01, 3.99, -1, 1.1],  aspect='auto')
@@ -360,8 +353,6 @@ polygon = Polygon(np.column_stack((x_hullF_closed, y_hullF_closed)), closed=True
 #axs[1].text(0.49, 0.2, r'$\mu$', ha='center', fontsize=20)
 
 # y-axis label next to the left plot
-#axs[1].text(0, 0.53, 'w', va='center', rotation='vertical', fontsize=20)
-#cbar_ax = fig.add_axes([0.89, 0.14, 0.03, 0.7])  # [left, bottom, width, height]
 cbar = plt.colorbar(im, shrink=1)  # Experiment with the shrink value
 axs[1].text(-0.1, -1.5, "b)", fontsize=20, weight='bold')
 axs[0].text(-0.1, -1.5, "a)", fontsize=20, weight='bold')

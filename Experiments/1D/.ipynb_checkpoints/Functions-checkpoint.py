@@ -19,7 +19,7 @@ def f1(x): # smooth (spherical)
 
 def f2(x): # rugged Rastrigin
     
-    
+    #return 5+2*x**2-2*np.cos(3*np.pi*x)+2
     return (x**2-10*np.cos(2*np.pi*x)+10)/BoundaryYUp[1]
 
 def f3(x): #neutral: Ackley smoothed out
