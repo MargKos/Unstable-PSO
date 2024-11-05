@@ -52,7 +52,7 @@ Ensure you have the required Python version and dependencies. [Details to be pro
 
 # License
 
-This project is licensed under the [License Name] - see the `LICENSE.md` file for details.
+This project is licensed under the MIT License. See the `LICENSE.tex` file for details.
 
 # Acknowledgments
 
