@@ -5,7 +5,7 @@ This repository contains the code accompanying the paper:
 
 **[[1] Exploration of Particle Swarm OptimisationAlgorithm with Divergent Parameters]** submitted (2024) in Springer Nature, by Margarita Kostré, Nataša Djurdjevac Conrad Christof Schütte & Vikram Sunkara.
 
-In this paper we study the exploration and exploitation behaviour of PSO. We run several particle simulations and analyz various performance measures. Below are the steps and configuration details to guide you through the process.
+In this paper we study the exploration and exploitation behaviour of PSO. We run several particle simulations and analyze them unsing various performance measures. Below are the steps and configuration details to guide you through the process.
 
 ## 1. Set Parameters in `Variable.py`
 Before running the simulations, configure the following parameters in the `Variable.py` file:
